@@ -1,0 +1,6 @@
+Interface Name,Day 1 Total Transactions Count (2026-02-26),Day 1 Txn Error Count if any (2026-02-26)
+Delivery ASN IBM Test,24,0
+Material Master Outbound IBM Test,16,0
+Inbound Delivery_IBM_Test,4,0
+Outbound Delivery_IBM_Test,24,0
+Inbound Delivery Confirmation _IBM_Test,1,0

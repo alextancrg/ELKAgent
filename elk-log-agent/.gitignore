@@ -1,0 +1,5 @@
+config.env
+reports/*.md
+reports/*.json
+*.log
+.DS_Store

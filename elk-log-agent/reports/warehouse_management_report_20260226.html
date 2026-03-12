@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warehouse Management - Daily Transaction Report | 2026-02-26</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1b2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #252840 0%, #1e2035 100%);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    border: 1px solid #353860;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    color: #8b8fa3;
+  }
+  .header .date-badge {
+    display: inline-block;
+    background: #00bfb3;
+    color: #1a1b2e;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  /* Metrics Row */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .metric-card {
+    background: #252840;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #353860;
+    text-align: center;
+  }
+  .metric-card .metric-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #00bfb3;
+  }
+  .metric-card .metric-value.error { color: #ef4444; }
+  .metric-card .metric-value.success { color: #10b981; }
+  .metric-card .metric-label {
+    font-size: 13px;
+    color: #8b8fa3;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Table */
+  .table-section {
+    background: #252840;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #353860;
+    margin-bottom: 24px;
+  }
+  .table-section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #353860;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead th {
+    background: #1e2035;
+    color: #8b8fa3;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid #353860;
+  }
+  tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #2a2d4a;
+    font-size: 14px;
+  }
+  tbody tr:hover { background: #2a2d4a; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .interface-name {
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .count-success {
+    color: #10b981;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .count-error {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .count-error.zero { color: #10b981; }
+  .count-error.nonzero { color: #ef4444; }
+
+  .status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .status-badge.healthy {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+  .status-badge.warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+  .status-badge.critical {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  /* Bar Chart */
+  .chart-section {
+    background: #252840;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #353860;
+    margin-bottom: 24px;
+  }
+  .chart-section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #353860;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .bar-label {
+    width: 320px;
+    font-size: 13px;
+    color: #c0c4d6;
+    flex-shrink: 0;
+    padding-right: 16px;
+    text-align: right;
+  }
+  .bar-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .bar {
+    height: 28px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    min-width: 30px;
+    transition: width 0.5s ease;
+  }
+  .bar.success { background: linear-gradient(90deg, #10b981, #059669); }
+  .bar.error { background: linear-gradient(90deg, #ef4444, #dc2626); }
+
+  /* ELK Query Info */
+  .elk-info {
+    background: #252840;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #353860;
+    margin-bottom: 24px;
+  }
+  .elk-info h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #353860;
+  }
+  .elk-detail {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 8px 16px;
+    font-size: 13px;
+  }
+  .elk-detail dt {
+    color: #8b8fa3;
+    font-weight: 600;
+  }
+  .elk-detail dd { color: #c0c4d6; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 16px;
+    color: #555;
+    font-size: 12px;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: #fff; color: #333; padding: 12px; }
+    .header { background: #f8f9fa; border-color: #ddd; }
+    .header h1 { color: #333; }
+    .metric-card, .table-section, .chart-section, .elk-info {
+      background: #fff; border-color: #ddd;
+    }
+    .metric-card .metric-value { color: #333; }
+    thead th { background: #f0f0f0; color: #333; }
+    tbody td { color: #333; }
+    .interface-name { color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Warehouse Management - Daily Transaction Report</h1>
+    <div class="subtitle">IBM Sterling B2B Integrator Interfaces | Source: ELK/Elasticsearch</div>
+    <div class="date-badge">Report Date: 2026-02-26 (Today)</div>
+  </div>
+
+  <!-- Metrics Row -->
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-value">5</div>
+      <div class="metric-label">Interfaces Monitored</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value success">69</div>
+      <div class="metric-label">Total Successful Txns</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:#10b981">0</div>
+      <div class="metric-label">Total Error Txns</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:#10b981">100%</div>
+      <div class="metric-label">Success Rate</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">
+        <span class="status-badge healthy">All Healthy</span>
+      </div>
+      <div class="metric-label">Overall Status</div>
+    </div>
+  </div>
+
+  <!-- Transaction Table -->
+  <div class="table-section">
+    <h2>Transaction Count by Interface</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Interface Name</th>
+          <th>Day 1 Total Transactions Count<br><small style="color:#00bfb3">(2026-02-26)</small></th>
+          <th>Day 1 Txn Error Count if any<br><small style="color:#ef4444">(2026-02-26)</small></th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="interface-name">Delivery ASN IBM Test</td>
+          <td class="count-success">24</td>
+          <td class="count-error zero">0</td>
+          <td><span class="status-badge healthy">Healthy</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="interface-name">Material Master Outbound IBM Test</td>
+          <td class="count-success">16</td>
+          <td class="count-error zero">0</td>
+          <td><span class="status-badge healthy">Healthy</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="interface-name">Inbound Delivery_IBM_Test</td>
+          <td class="count-success">4</td>
+          <td class="count-error zero">0</td>
+          <td><span class="status-badge healthy">Healthy</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="interface-name">Outbound Delivery_IBM_Test</td>
+          <td class="count-success">24</td>
+          <td class="count-error zero">0</td>
+          <td><span class="status-badge healthy">Healthy</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td class="interface-name">Inbound Delivery Confirmation _IBM_Test</td>
+          <td class="count-success">1</td>
+          <td class="count-error zero">0</td>
+          <td><span class="status-badge healthy">Healthy</span></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr style="border-top: 2px solid #353860;">
+          <td></td>
+          <td style="font-weight:700; color:#fff;">TOTAL</td>
+          <td class="count-success" style="font-size:18px;">69</td>
+          <td class="count-error zero" style="font-size:18px;">0</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Bar Chart -->
+  <div class="chart-section">
+    <h2>Transaction Volume by Interface</h2>
+
+    <div class="bar-row">
+      <div class="bar-label">Delivery ASN IBM Test</div>
+      <div class="bar-container">
+        <div class="bar success" style="width: 100%;">24</div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Material Master Outbound IBM Test</div>
+      <div class="bar-container">
+        <div class="bar success" style="width: 67%;">16</div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Inbound Delivery_IBM_Test</div>
+      <div class="bar-container">
+        <div class="bar success" style="width: 17%;">4</div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Outbound Delivery_IBM_Test</div>
+      <div class="bar-container">
+        <div class="bar success" style="width: 100%;">24</div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Inbound Delivery Confirmation _IBM_Test</div>
+      <div class="bar-container">
+        <div class="bar success" style="width: 4%;">1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Target Systems Breakdown -->
+  <div class="table-section">
+    <h2>Target Systems Breakdown</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Interface</th>
+          <th>Target System(s)</th>
+          <th>Environment(s)</th>
+          <th>Entity (IDoc Type)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="interface-name">Delivery ASN IBM Test</td>
+          <td>MY_PH_ZP, PH_DI_MD, MY_DI_DK, GT_PH_EL, SA_PH_SL, SK_PH_DS</td>
+          <td>Test, Stage</td>
+          <td><code>SHP_OBDLV_SAVE_REPLICA</code></td>
+        </tr>
+        <tr>
+          <td class="interface-name">Material Master Outbound IBM Test</td>
+          <td>JP_PH_JD</td>
+          <td>Test</td>
+          <td><code>/TNESP/MASTER</code></td>
+        </tr>
+        <tr>
+          <td class="interface-name">Inbound Delivery_IBM_Test</td>
+          <td>IT_PH_CH1, JP_PH_ML, MY_PH_ZP</td>
+          <td>Test, Stage</td>
+          <td><code>SHP_IBDLV_SAVE_REPLICA</code></td>
+        </tr>
+        <tr>
+          <td class="interface-name">Outbound Delivery_IBM_Test</td>
+          <td>MY_PH_ZP, PH_DI_MD, MY_DI_DK, GT_PH_EL, SA_PH_SL, SK_PH_DS</td>
+          <td>Test, Stage</td>
+          <td><code>SHP_OBDLV_SAVE_REPLICA</code></td>
+        </tr>
+        <tr>
+          <td class="interface-name">Inbound Delivery Confirmation _IBM_Test</td>
+          <td>S4Hana</td>
+          <td>Stage</td>
+          <td><code>SHP_OBDLV_CONFIRM_DECENTRAL</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ELK Query Details -->
+  <div class="elk-info">
+    <h2>Data Source Details</h2>
+    <dl class="elk-detail">
+      <dt>Source</dt>
+      <dd>Elasticsearch (ELK)</dd>
+      <dt>Endpoint</dt>
+      <dd>integration-monitoring-np-lb.roche.com:9200</dd>
+      <dt>Indices</dt>
+      <dd>mulesoft-pharma-test-*, mulesoft-pharma-stage-*</dd>
+      <dt>Time Range</dt>
+      <dd>2026-02-26T00:00:00Z to 2026-02-26T07:52:00Z (UTC)</dd>
+      <dt>Filter</dt>
+      <dd>MuleMessage.metadata.application = "IBM Sterling B2B Integrator"</dd>
+      <dt>Correlation</dt>
+      <dd>Grouped by MuleMessage.correlationId, status from MuleMessage.metadata.txnStatus</dd>
+      <dt>Report Generated</dt>
+      <dd>2026-02-26 07:52 UTC</dd>
+    </dl>
+  </div>
+
+  <!-- Notes -->
+  <div class="elk-info">
+    <h2>Notes</h2>
+    <ul style="padding-left: 20px; font-size: 13px; color: #8b8fa3; line-height: 1.8;">
+      <li><strong>Delivery ASN IBM Test</strong> and <strong>Outbound Delivery_IBM_Test</strong> share the same IDoc entity type (<code>SHP_OBDLV_SAVE_REPLICA</code>). The count of 24 represents the combined total for both interfaces.</li>
+      <li>All transactions today have <code>txnStatus: Success</code>. No errors detected across any interface.</li>
+      <li>Source system for all transactions: <strong>S4Hana</strong> via <strong>IBM Sterling B2B Integrator</strong>.</li>
+      <li>Production environment data was not accessible from this endpoint (separate network).</li>
+      <li>Data covers test and stage environments only, as indicated by the "Test" suffix in interface names.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Generated by ELK Log Analysis Agent | Warehouse Management Transaction Report
+  </div>
+
+</div>
+</body>
+</html>

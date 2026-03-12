@@ -1,0 +1,16 @@
+Interface Name,Day 1 Total Transactions Count (2026-02-27),Day 1 Txn Error Count if any (2026-02-27)
+Inbound Delivery_IBM_Test,0,0
+Outbound Delivery_IBM_Test,19,0
+Inbound Delivery Confirmation _IBM_Test,2,0
+Outbound Delivery Confirmation IBM_Test,2,0
+Sales Orders_IBM_Test,0,0
+Stock Adjustments/Movements_IBM_Test,0,0
+Information on Delivery_IBM_Test,15,0
+Customer Invoice IBM Test,11,0
+Material Master Outbound IBM Test,0,0
+Sales Order Outbound IBM Test,0,0
+Delivery ASN IBM Test,19,0
+BPCOUT IBM Test,0,0
+Delivery Note_IBM_Test,2,0
+POD Attachments_IBM_Test,0,0
+Stock Reconciliation IBM_Test,0,0

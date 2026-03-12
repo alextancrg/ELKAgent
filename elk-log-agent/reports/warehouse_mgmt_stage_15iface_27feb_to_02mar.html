@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warehouse Management - Stage Multi-Day Report | 27 Feb - 2 Mar 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1b2e;color:#e0e0e0;min-height:100vh;padding:24px}
+.ctr{max-width:1400px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#252840,#1e2035);border-radius:12px;padding:32px;margin-bottom:24px;border:1px solid #353860}
+.hdr h1{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px}
+.hdr .sub{font-size:14px;color:#8b8fa3}
+.b{display:inline-block;padding:4px 12px;border-radius:16px;font-size:13px;font-weight:600;margin-top:8px;margin-right:8px}
+.b-d{background:#00bfb3;color:#1a1b2e}.b-e{background:#f59e0b;color:#1a1b2e}.b-c{background:#3b82f6;color:#fff}
+.mx{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px}
+.mc{background:#252840;border-radius:10px;padding:18px;border:1px solid #353860;text-align:center}
+.mc .v{font-size:32px;font-weight:700}.mc .v.tl{color:#00bfb3}.mc .v.gn{color:#10b981}.mc .v.rd{color:#ef4444}.mc .v.am{color:#f59e0b}
+.mc .l{font-size:11px;color:#8b8fa3;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.cd{background:#252840;border-radius:12px;padding:24px;border:1px solid #353860;margin-bottom:24px}
+.cd h2{font-size:18px;font-weight:600;color:#fff;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #353860}
+table{width:100%;border-collapse:collapse}
+thead th{background:#1e2035;color:#8b8fa3;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;text-align:center;border-bottom:2px solid #353860;white-space:nowrap}
+thead th:nth-child(1),thead th:nth-child(2){text-align:left}
+tbody td{padding:10px;border-bottom:1px solid #2a2d4a;font-size:13px;text-align:center}
+tbody td:nth-child(1),tbody td:nth-child(2){text-align:left}
+tbody tr:hover{background:#2a2d4a}
+tbody tr:last-child td{border-bottom:none}
+tfoot td{padding:10px;font-weight:700;color:#fff;border-top:2px solid #353860;text-align:center}
+tfoot td:nth-child(1),tfoot td:nth-child(2){text-align:left}
+.if{font-weight:600;color:#fff}
+.ok{color:#10b981;font-weight:700;font-size:14px}
+.er{font-weight:700;font-size:14px}
+.er.z{color:#10b981}.er.h{color:#ef4444}
+.no{color:#555;font-style:italic;font-size:12px}
+.st{display:inline-block;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:600;text-transform:uppercase}
+.st-ok{background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+.st-id{background:rgba(139,143,163,.12);color:#8b8fa3;border:1px solid rgba(139,143,163,.25)}
+.tg{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;margin:2px}
+.tg.ac{background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+.tg.of{background:rgba(139,143,163,.08);color:#555;border:1px solid rgba(139,143,163,.15)}
+.br{display:flex;align-items:center;margin-bottom:6px}
+.bl{width:290px;font-size:11px;color:#c0c4d6;flex-shrink:0;padding-right:10px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bw{flex:1;display:flex;align-items:center;gap:3px}
+.ba{height:20px;border-radius:3px;display:flex;align-items:center;padding:0 6px;font-size:10px;font-weight:600;color:#fff;min-width:24px}
+.ba-ok{background:linear-gradient(90deg,#10b981,#059669)}.ba-no{background:#2a2d4a;color:#555}
+dl.nf{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;font-size:13px}
+dl.nf dt{color:#8b8fa3;font-weight:600}dl.nf dd{color:#c0c4d6}
+.ft{text-align:center;padding:16px;color:#555;font-size:12px}
+.day-hdr{writing-mode:horizontal-tb;font-size:10px}
+.succ-col{background:rgba(16,185,129,.05)}.err-col{background:rgba(239,68,68,.05)}
+@media print{body{background:#fff;color:#333;padding:12px}.hdr,.mc,.cd{background:#f8f9fa;border-color:#ddd}.hdr h1,.if,.cd h2{color:#333}thead th{background:#f0f0f0;color:#333}tbody td,tfoot td{color:#333}}
+</style>
+</head>
+<body>
+<div class="ctr">
+
+<div class="hdr">
+  <h1>Warehouse Management - Multi-Day Transaction Report</h1>
+  <div class="sub">IBM Sterling B2B Integrator | 15 Interfaces | Stage Environment</div>
+  <div class="b b-d">27 Feb - 2 Mar 2026</div>
+  <div class="b b-e">Environment: Stage</div>
+  <div class="b b-c">15 Interfaces | 4 Days</div>
+</div>
+
+<div class="cd">
+  <h2>Source / Target Systems Scope (11 Systems)</h2>
+  <div>
+    <span class="tg of">EG_PH_EP</span>
+    <span class="tg of">AE_PH_KN</span>
+    <span class="tg ac">SA_PH_SL</span>
+    <span class="tg of">GH_PH_IL</span>
+    <span class="tg ac">MY_DI_DK</span>
+    <span class="tg of">SI_PH_KE</span>
+    <span class="tg ac">SK_PH_DS</span>
+    <span class="tg ac">DSV</span>
+    <span class="tg of">CZ_PH_AH</span>
+    <span class="tg of">XCZ_PH_GR</span>
+    <span class="tg ac">XDK_DI_MS</span>
+  </div>
+  <p style="margin-top:10px;font-size:12px;color:#8b8fa3;">
+    Active across period: <span class="tg ac">MY_DI_DK</span> <span class="tg ac">XDK_DI_MS</span> <span class="tg ac">SK_PH_DS</span> <span class="tg ac">DSV</span> <span class="tg ac">SA_PH_SL</span>
+  </p>
+</div>
+
+<div class="mx">
+  <div class="mc"><div class="v tl">15</div><div class="l">Interfaces</div></div>
+  <div class="mc"><div class="v gn">76</div><div class="l">Total Success (4 days)</div></div>
+  <div class="mc"><div class="v gn">0</div><div class="l">Total Errors (4 days)</div></div>
+  <div class="mc"><div class="v gn">100%</div><div class="l">Success Rate</div></div>
+  <div class="mc"><div class="v tl">5 / 11</div><div class="l">Active Systems</div></div>
+  <div class="mc"><div class="v tl">6 / 15</div><div class="l">Active Interfaces</div></div>
+</div>
+
+<div class="cd">
+  <h2>Transaction Count by Interface (4-Day View)</h2>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2">#</th>
+        <th rowspan="2" style="min-width:260px">Interface Name</th>
+        <th colspan="2" style="border-bottom:1px solid #353860">Day 1<br><small style="color:#00bfb3">27 Feb</small></th>
+        <th colspan="2" style="border-bottom:1px solid #353860">Day 2<br><small style="color:#00bfb3">28 Feb</small></th>
+        <th colspan="2" style="border-bottom:1px solid #353860">Day 3<br><small style="color:#00bfb3">1 Mar</small></th>
+        <th colspan="2" style="border-bottom:1px solid #353860">Day 4<br><small style="color:#00bfb3">2 Mar</small></th>
+        <th rowspan="2">Total</th>
+      </tr>
+      <tr>
+        <th class="succ-col">Txn</th><th class="err-col">Err</th>
+        <th class="succ-col">Txn</th><th class="err-col">Err</th>
+        <th class="succ-col">Txn</th><th class="err-col">Err</th>
+        <th class="succ-col">Txn</th><th class="err-col">Err</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td class="if">Inbound Delivery_IBM_Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+      <tr><td>2</td><td class="if">Outbound Delivery_IBM_Stage</td><td class="ok">19</td><td class="er z">0</td><td class="ok">7</td><td class="er z">0</td><td class="ok">4</td><td class="er z">0</td><td class="ok">1</td><td class="er z">0</td><td class="ok">31</td></tr>
+      <tr><td>3</td><td class="if">Inbound Delivery Confirmation _IBM_Stage</td><td class="ok">2</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="ok">2</td></tr>
+      <tr><td>4</td><td class="if">Outbound Delivery Confirmation IBM_Stage</td><td class="ok">2</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="ok">2</td></tr>
+      <tr><td>5</td><td class="if">Sales Orders_IBM_Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+      <tr><td>6</td><td class="if">Stock Adjustments/Movements_IBM_Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+      <tr><td>7</td><td class="if">Information on Delivery_IBM_Stage</td><td class="ok">15</td><td class="er z">0</td><td class="ok">5</td><td class="er z">0</td><td class="ok">4</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="ok">24</td></tr>
+      <tr><td>8</td><td class="if">Customer Invoice IBM Stage</td><td class="ok">11</td><td class="er z">0</td><td class="ok">2</td><td class="er z">0</td><td class="ok">2</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="ok">15</td></tr>
+      <tr><td>9</td><td class="if">Material Master Outbound IBM Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+      <tr><td>10</td><td class="if">Sales Order Outbound IBM Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+      <tr><td>11</td><td class="if">Delivery ASN IBM Stage</td><td class="ok">19</td><td class="er z">0</td><td class="ok">7</td><td class="er z">0</td><td class="ok">4</td><td class="er z">0</td><td class="ok">1</td><td class="er z">0</td><td class="ok">31</td></tr>
+      <tr><td>12</td><td class="if">BPCOUT IBM Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+      <tr><td>13</td><td class="if">Delivery Note_IBM_Stage</td><td class="ok">2</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="ok">2</td></tr>
+      <tr><td>14</td><td class="if">POD Attachments_IBM_Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+      <tr><td>15</td><td class="if">Stock Reconciliation IBM_Stage</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td><td class="er z">0</td><td class="no">0</td></tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td></td><td>TOTAL</td>
+        <td style="color:#10b981">51</td><td style="color:#10b981">0</td>
+        <td style="color:#10b981">14</td><td style="color:#10b981">0</td>
+        <td style="color:#10b981">10</td><td style="color:#10b981">0</td>
+        <td style="color:#10b981">1</td><td style="color:#10b981">0</td>
+        <td style="color:#00bfb3;font-size:16px">76</td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+</div>
+
+<div class="cd">
+  <h2>Daily Transaction Volume Trend</h2>
+  <div class="br"><div class="bl">27 Feb (Day 1)</div><div class="bw"><div class="ba ba-ok" style="width:100%;">51</div></div></div>
+  <div class="br"><div class="bl">28 Feb (Day 2)</div><div class="bw"><div class="ba ba-ok" style="width:27%;">14</div></div></div>
+  <div class="br"><div class="bl">1 Mar (Day 3)</div><div class="bw"><div class="ba ba-ok" style="width:20%;">10</div></div></div>
+  <div class="br"><div class="bl">2 Mar (Day 4 - so far)</div><div class="bw"><div class="ba ba-ok" style="width:2%;">1</div></div></div>
+</div>
+
+<div class="cd">
+  <h2>Interface Volume Trend (4 Days)</h2>
+  <div class="br"><div class="bl">Outbound Delivery / Delivery ASN</div><div class="bw"><div class="ba ba-ok" style="width:100%;">31</div></div></div>
+  <div class="br"><div class="bl">Information on Delivery</div><div class="bw"><div class="ba ba-ok" style="width:77%;">24</div></div></div>
+  <div class="br"><div class="bl">Customer Invoice</div><div class="bw"><div class="ba ba-ok" style="width:48%;">15</div></div></div>
+  <div class="br"><div class="bl">Inbound Delivery Confirmation</div><div class="bw"><div class="ba ba-ok" style="width:6%;">2</div></div></div>
+  <div class="br"><div class="bl">Outbound Delivery Confirmation</div><div class="bw"><div class="ba ba-ok" style="width:6%;">2</div></div></div>
+  <div class="br"><div class="bl">Delivery Note</div><div class="bw"><div class="ba ba-ok" style="width:6%;">2</div></div></div>
+  <div class="br"><div class="bl">Inbound Delivery</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+  <div class="br"><div class="bl">Sales Orders</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+  <div class="br"><div class="bl">Stock Adjustments/Movements</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+  <div class="br"><div class="bl">Material Master Outbound</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+  <div class="br"><div class="bl">Sales Order Outbound</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+  <div class="br"><div class="bl">BPCOUT</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+  <div class="br"><div class="bl">POD Attachments</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+  <div class="br"><div class="bl">Stock Reconciliation</div><div class="bw"><div class="ba ba-no" style="width:24px;">0</div></div></div>
+</div>
+
+<div class="cd">
+  <h2>Transactions by Source / Target System (4-Day Total)</h2>
+  <table>
+    <thead><tr><th>System</th><th>Role</th><th>Entities</th><th>27 Feb</th><th>28 Feb</th><th>1 Mar</th><th>2 Mar</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td class="if">MY_DI_DK</td><td>Target + Source</td><td><code>SHP_OBDLV_SAVE_REPLICA</code>, <code>STATUS</code></td><td class="ok">30</td><td class="ok">12</td><td class="ok">8</td><td class="no">0</td><td class="ok">50</td></tr>
+      <tr><td class="if">XDK_DI_MS</td><td>Target</td><td><code>INVOIC</code></td><td class="ok">11</td><td class="ok">2</td><td class="ok">2</td><td class="no">0</td><td class="ok">15</td></tr>
+      <tr><td class="if">SK_PH_DS</td><td>Target + Source</td><td><code>SHP_OBDLV_SAVE_REPLICA</code>, <code>STATUS</code>, <code>SHPCON</code>, <code>SHP_OBDLV_CONFIRM_DECENTRAL</code></td><td class="ok">8</td><td class="no">0</td><td class="no">0</td><td class="no">0</td><td class="ok">8</td></tr>
+      <tr><td class="if">DSV</td><td>Source</td><td><code>OBDDLN</code></td><td class="ok">2</td><td class="no">0</td><td class="no">0</td><td class="no">0</td><td class="ok">2</td></tr>
+      <tr><td class="if">SA_PH_SL</td><td>Target</td><td><code>SHP_OBDLV_SAVE_REPLICA</code></td><td class="no">0</td><td class="no">0</td><td class="no">0</td><td class="ok">1</td><td class="ok">1</td></tr>
+      <tr style="color:#555"><td>EG_PH_EP</td><td>—</td><td>—</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr style="color:#555"><td>AE_PH_KN</td><td>—</td><td>—</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr style="color:#555"><td>GH_PH_IL</td><td>—</td><td>—</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr style="color:#555"><td>SI_PH_KE</td><td>—</td><td>—</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr style="color:#555"><td>CZ_PH_AH</td><td>—</td><td>—</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr style="color:#555"><td>XCZ_PH_GR</td><td>—</td><td>—</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cd">
+  <h2>Data Source Details</h2>
+  <dl class="nf">
+    <dt>Source</dt><dd>Elasticsearch (ELK)</dd>
+    <dt>Endpoint</dt><dd>integration-monitoring-np-lb.roche.com:9200</dd>
+    <dt>Index</dt><dd>mulesoft-pharma-stage-*</dd>
+    <dt>Environment</dt><dd>Stage</dd>
+    <dt>Time Range</dt><dd>2026-02-27T00:00:00Z to 2026-03-02T09:47:00Z (UTC)</dd>
+    <dt>Filter</dt><dd>MuleMessage.metadata.application = "IBM Sterling B2B Integrator" AND (sourceSystem OR targetSystem IN scoped list)</dd>
+    <dt>Systems Scope</dt><dd>EG_PH_EP, AE_PH_KN, SA_PH_SL, GH_PH_IL, MY_DI_DK, SI_PH_KE, SK_PH_DS, DSV, CZ_PH_AH, XCZ_PH_GR, XDK_DI_MS</dd>
+    <dt>Total ELK Hits</dt><dd>76 txnStatus events across 4 days</dd>
+    <dt>Report Generated</dt><dd>2026-03-02 09:47 UTC</dd>
+  </dl>
+</div>
+
+<div class="cd">
+  <h2>Notes</h2>
+  <ul style="padding-left:20px;font-size:13px;color:#8b8fa3;line-height:1.8;">
+    <li><strong>Delivery ASN IBM Stage</strong> and <strong>Outbound Delivery_IBM_Stage</strong> share the same IDoc entity (<code>SHP_OBDLV_SAVE_REPLICA</code>). Counts are identical as they represent the same transactions.</li>
+    <li><strong>MY_DI_DK</strong> was the most active system with 50 transactions (deliveries + status updates) across the period.</li>
+    <li><strong>XDK_DI_MS</strong> received 15 customer invoices across 3 days.</li>
+    <li><strong>SK_PH_DS</strong> had 8 transactions on 27 Feb only (deliveries, confirmations, status updates).</li>
+    <li><strong>DSV</strong> sent 2 delivery notes on 27 Feb only.</li>
+    <li><strong>SA_PH_SL</strong> had 1 outbound delivery on 2 Mar.</li>
+    <li>6 of 11 scoped systems had no warehouse management transactions across the entire period.</li>
+    <li>Day 4 (2 Mar) shows only 1 transaction so far — report generated at 09:47 UTC, day still in progress.</li>
+    <li>All 76 transactions completed with <code>txnStatus: Success</code>. Zero errors across all 4 days.</li>
+  </ul>
+</div>
+
+<div class="ft">Generated by ELK Log Analysis Agent | Warehouse Management Multi-Day Report — Stage — 27 Feb to 2 Mar 2026</div>
+
+</div>
+</body>
+</html>

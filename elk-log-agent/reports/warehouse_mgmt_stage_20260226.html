@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warehouse Management - Stage Daily Transaction Report | 2026-02-26</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1b2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #252840 0%, #1e2035 100%);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    border: 1px solid #353860;
+  }
+  .header h1 { font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
+  .header .subtitle { font-size: 14px; color: #8b8fa3; }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+  .badge-date { background: #00bfb3; color: #1a1b2e; }
+  .badge-env { background: #f59e0b; color: #1a1b2e; }
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .metric-card {
+    background: #252840;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #353860;
+    text-align: center;
+  }
+  .metric-card .value { font-size: 36px; font-weight: 700; }
+  .metric-card .value.teal { color: #00bfb3; }
+  .metric-card .value.green { color: #10b981; }
+  .metric-card .value.red { color: #ef4444; }
+  .metric-card .label {
+    font-size: 12px; color: #8b8fa3; margin-top: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .card {
+    background: #252840;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #353860;
+    margin-bottom: 24px;
+  }
+  .card h2 {
+    font-size: 18px; font-weight: 600; color: #ffffff;
+    margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #353860;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: #1e2035; color: #8b8fa3; font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 16px;
+    text-align: left; border-bottom: 2px solid #353860;
+  }
+  tbody td { padding: 14px 16px; border-bottom: 1px solid #2a2d4a; font-size: 14px; }
+  tbody tr:hover { background: #2a2d4a; }
+  tbody tr:last-child td { border-bottom: none; }
+  tfoot td { padding: 14px 16px; font-weight: 700; color: #fff; border-top: 2px solid #353860; }
+  .iface { font-weight: 600; color: #ffffff; }
+  .cnt-ok { color: #10b981; font-weight: 700; font-size: 16px; }
+  .cnt-err { font-weight: 700; font-size: 16px; }
+  .cnt-err.zero { color: #10b981; }
+  .cnt-err.has { color: #ef4444; }
+  .cnt-none { color: #555; font-style: italic; }
+  .status {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+  }
+  .status-ok { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+  .status-idle { background: rgba(139,143,163,0.15); color: #8b8fa3; border: 1px solid rgba(139,143,163,0.3); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 12px; }
+  .bar-label { width: 320px; font-size: 13px; color: #c0c4d6; flex-shrink: 0; padding-right: 16px; text-align: right; }
+  .bar-wrap { flex: 1; display: flex; align-items: center; gap: 4px; }
+  .bar {
+    height: 28px; border-radius: 4px; display: flex; align-items: center;
+    padding: 0 8px; font-size: 12px; font-weight: 600; color: #fff; min-width: 30px;
+  }
+  .bar-ok { background: linear-gradient(90deg, #10b981, #059669); }
+  .bar-err { background: linear-gradient(90deg, #ef4444, #dc2626); }
+  .bar-none { background: #2a2d4a; color: #555; }
+  .target-tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 600; margin: 2px;
+    background: rgba(0,191,179,0.12); color: #00bfb3; border: 1px solid rgba(0,191,179,0.25);
+  }
+  .target-tag.inactive {
+    background: rgba(139,143,163,0.1); color: #555; border-color: rgba(139,143,163,0.2);
+  }
+  dl.info { display: grid; grid-template-columns: 160px 1fr; gap: 8px 16px; font-size: 13px; }
+  dl.info dt { color: #8b8fa3; font-weight: 600; }
+  dl.info dd { color: #c0c4d6; }
+  .footer { text-align: center; padding: 16px; color: #555; font-size: 12px; }
+  @media print {
+    body { background: #fff; color: #333; padding: 12px; }
+    .header, .metric-card, .card { background: #f8f9fa; border-color: #ddd; }
+    .header h1, .iface, .card h2 { color: #333; }
+    thead th { background: #f0f0f0; color: #333; }
+    tbody td, tfoot td { color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Warehouse Management - Daily Transaction Report</h1>
+    <div class="subtitle">IBM Sterling B2B Integrator Interfaces | Stage Environment Only</div>
+    <div class="badge badge-date">Report Date: 2026-02-26 (Today)</div>
+    <div class="badge badge-env">Environment: Stage</div>
+  </div>
+
+  <!-- Target Systems Scope -->
+  <div class="card">
+    <h2>Target Systems Scope (12 Systems)</h2>
+    <div>
+      <span class="target-tag">EG_PH_EP</span>
+      <span class="target-tag">AE_PH_KN</span>
+      <span class="target-tag">SA_PH_SL</span>
+      <span class="target-tag">GH_PH_IL</span>
+      <span class="target-tag">MY_DI_DK</span>
+      <span class="target-tag">SI_PH_KE</span>
+      <span class="target-tag">SK_PH_DS</span>
+      <span class="target-tag">DSV</span>
+      <span class="target-tag">CZ_PH_AH</span>
+      <span class="target-tag">XCZ_PH_GR</span>
+      <span class="target-tag">XDK_DI_MS</span>
+      <span class="target-tag">S4Hana</span>
+    </div>
+    <p style="margin-top:12px; font-size:13px; color:#8b8fa3;">
+      Active today:
+      <span class="target-tag">MY_DI_DK</span>
+      <span class="target-tag">SA_PH_SL</span>
+      <span class="target-tag">SK_PH_DS</span>
+      <span class="target-tag">S4Hana</span>
+      &nbsp;&mdash;&nbsp;
+      <span style="color:#555;">No transactions for: EG_PH_EP, AE_PH_KN, GH_PH_IL, SI_PH_KE, DSV, CZ_PH_AH, XCZ_PH_GR, XDK_DI_MS</span>
+    </p>
+  </div>
+
+  <!-- Metrics Row -->
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="value teal">5</div>
+      <div class="label">Interfaces Monitored</div>
+    </div>
+    <div class="metric-card">
+      <div class="value green">33</div>
+      <div class="label">Total Successful Txns</div>
+    </div>
+    <div class="metric-card">
+      <div class="value green">0</div>
+      <div class="label">Total Error Txns</div>
+    </div>
+    <div class="metric-card">
+      <div class="value green">100%</div>
+      <div class="label">Success Rate</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">4 / 12</div>
+      <div class="label">Active Target Systems</div>
+    </div>
+  </div>
+
+  <!-- Transaction Table -->
+  <div class="card">
+    <h2>Transaction Count by Interface</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Interface Name</th>
+          <th>Day 1 Total Transactions Count<br><small style="color:#00bfb3">(2026-02-26)</small></th>
+          <th>Day 1 Txn Error Count if any<br><small style="color:#ef4444">(2026-02-26)</small></th>
+          <th>Target Systems</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="iface">Delivery ASN IBM Test</td>
+          <td class="cnt-ok">16</td>
+          <td class="cnt-err zero">0</td>
+          <td>
+            <span class="target-tag">MY_DI_DK</span><small style="color:#8b8fa3">(14)</small>
+            <span class="target-tag">SA_PH_SL</span><small style="color:#8b8fa3">(1)</small>
+            <span class="target-tag">SK_PH_DS</span><small style="color:#8b8fa3">(1)</small>
+          </td>
+          <td><span class="status status-ok">Healthy</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="iface">Material Master Outbound IBM Test</td>
+          <td class="cnt-none">0</td>
+          <td class="cnt-err zero">0</td>
+          <td><span style="color:#555; font-size:12px;">No transactions to scoped targets</span></td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="iface">Inbound Delivery_IBM_Test</td>
+          <td class="cnt-none">0</td>
+          <td class="cnt-err zero">0</td>
+          <td><span style="color:#555; font-size:12px;">No transactions to scoped targets</span></td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="iface">Outbound Delivery_IBM_Test</td>
+          <td class="cnt-ok">16</td>
+          <td class="cnt-err zero">0</td>
+          <td>
+            <span class="target-tag">MY_DI_DK</span><small style="color:#8b8fa3">(14)</small>
+            <span class="target-tag">SA_PH_SL</span><small style="color:#8b8fa3">(1)</small>
+            <span class="target-tag">SK_PH_DS</span><small style="color:#8b8fa3">(1)</small>
+          </td>
+          <td><span class="status status-ok">Healthy</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td class="iface">Inbound Delivery Confirmation _IBM_Test</td>
+          <td class="cnt-ok">1</td>
+          <td class="cnt-err zero">0</td>
+          <td>
+            <span class="target-tag">S4Hana</span><small style="color:#8b8fa3">(1)</small>
+          </td>
+          <td><span class="status status-ok">Healthy</span></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>TOTAL</td>
+          <td style="color:#10b981; font-size:18px;">33</td>
+          <td style="color:#10b981; font-size:18px;">0</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Bar Chart -->
+  <div class="card">
+    <h2>Transaction Volume by Interface</h2>
+    <div class="bar-row">
+      <div class="bar-label">Delivery ASN IBM Test</div>
+      <div class="bar-wrap"><div class="bar bar-ok" style="width:100%;">16</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Material Master Outbound IBM Test</div>
+      <div class="bar-wrap"><div class="bar bar-none" style="width:30px;">0</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Inbound Delivery_IBM_Test</div>
+      <div class="bar-wrap"><div class="bar bar-none" style="width:30px;">0</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Outbound Delivery_IBM_Test</div>
+      <div class="bar-wrap"><div class="bar bar-ok" style="width:100%;">16</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Inbound Delivery Confirmation _IBM_Test</div>
+      <div class="bar-wrap"><div class="bar bar-ok" style="width:6%;">1</div></div>
+    </div>
+  </div>
+
+  <!-- Target System Breakdown -->
+  <div class="card">
+    <h2>Transactions by Target System</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Target System</th>
+          <th>Entity (IDoc Type)</th>
+          <th>Success Count</th>
+          <th>Error Count</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="iface">MY_DI_DK</td>
+          <td><code>SHP_OBDLV_SAVE_REPLICA</code></td>
+          <td class="cnt-ok">14</td>
+          <td class="cnt-err zero">0</td>
+          <td><span class="status status-ok">Healthy</span></td>
+        </tr>
+        <tr>
+          <td class="iface">SA_PH_SL</td>
+          <td><code>SHP_OBDLV_SAVE_REPLICA</code></td>
+          <td class="cnt-ok">1</td>
+          <td class="cnt-err zero">0</td>
+          <td><span class="status status-ok">Healthy</span></td>
+        </tr>
+        <tr>
+          <td class="iface">SK_PH_DS</td>
+          <td><code>SHP_OBDLV_SAVE_REPLICA</code></td>
+          <td class="cnt-ok">1</td>
+          <td class="cnt-err zero">0</td>
+          <td><span class="status status-ok">Healthy</span></td>
+        </tr>
+        <tr>
+          <td class="iface">S4Hana</td>
+          <td><code>SHP_OBDLV_CONFIRM_DECENTRAL</code></td>
+          <td class="cnt-ok">1</td>
+          <td class="cnt-err zero">0</td>
+          <td><span class="status status-ok">Healthy</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>EG_PH_EP</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>AE_PH_KN</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>GH_PH_IL</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>SI_PH_KE</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>DSV</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>CZ_PH_AH</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>XCZ_PH_GR</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+        <tr style="color:#555;">
+          <td>XDK_DI_MS</td><td>—</td><td>0</td><td>0</td>
+          <td><span class="status status-idle">No Activity</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ELK Query Details -->
+  <div class="card">
+    <h2>Data Source Details</h2>
+    <dl class="info">
+      <dt>Source</dt>
+      <dd>Elasticsearch (ELK)</dd>
+      <dt>Endpoint</dt>
+      <dd>integration-monitoring-np-lb.roche.com:9200</dd>
+      <dt>Index</dt>
+      <dd>mulesoft-pharma-stage-*</dd>
+      <dt>Environment</dt>
+      <dd>Stage</dd>
+      <dt>Time Range</dt>
+      <dd>2026-02-26T00:00:00Z to 2026-02-26T08:09:00Z (UTC)</dd>
+      <dt>Filter</dt>
+      <dd>MuleMessage.metadata.application = "IBM Sterling B2B Integrator"</dd>
+      <dt>Target Systems</dt>
+      <dd>EG_PH_EP, AE_PH_KN, SA_PH_SL, GH_PH_IL, MY_DI_DK, SI_PH_KE, SK_PH_DS, DSV, CZ_PH_AH, XCZ_PH_GR, XDK_DI_MS, S4Hana</dd>
+      <dt>Correlation</dt>
+      <dd>Grouped by MuleMessage.correlationId, status from MuleMessage.metadata.txnStatus</dd>
+      <dt>Total ELK Hits</dt>
+      <dd>53 log entries matching criteria</dd>
+      <dt>Report Generated</dt>
+      <dd>2026-02-26 08:09 UTC</dd>
+    </dl>
+  </div>
+
+  <!-- Notes -->
+  <div class="card">
+    <h2>Notes</h2>
+    <ul style="padding-left:20px; font-size:13px; color:#8b8fa3; line-height:1.8;">
+      <li><strong>Delivery ASN IBM Test</strong> and <strong>Outbound Delivery_IBM_Test</strong> share the same IDoc entity (<code>SHP_OBDLV_SAVE_REPLICA</code>). The count of 16 represents the combined total.</li>
+      <li><strong>Material Master Outbound IBM Test</strong> and <strong>Inbound Delivery_IBM_Test</strong> had no transactions to any of the 12 scoped target systems today in stage. They may have activity to other target systems not in scope.</li>
+      <li>8 of 12 target systems (EG_PH_EP, AE_PH_KN, GH_PH_IL, SI_PH_KE, DSV, CZ_PH_AH, XCZ_PH_GR, XDK_DI_MS) had no warehouse management transactions today.</li>
+      <li>All 33 transactions today completed with <code>txnStatus: Success</code>. Zero errors detected.</li>
+      <li>Source system for all transactions: <strong>S4Hana</strong> via <strong>IBM Sterling B2B Integrator</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Generated by ELK Log Analysis Agent | Warehouse Management Transaction Report — Stage Environment
+  </div>
+
+</div>
+</body>
+</html>

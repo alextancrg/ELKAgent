@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warehouse Management Transactions - Stage - 2 Mar 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#0f1923;color:#e0e6ed;min-height:100vh;padding:20px}
+.container{max-width:1400px;margin:0 auto}
+.header{background:linear-gradient(135deg,#1a2a3a,#243447);border-radius:12px;padding:30px;margin-bottom:24px;border:1px solid #2d4a5e}
+.header h1{font-size:24px;color:#5dade2;margin-bottom:8px}
+.header .subtitle{color:#85929e;font-size:14px}
+.header .date-badge{display:inline-block;background:#1b4f72;color:#85c1e9;padding:4px 14px;border-radius:20px;font-size:13px;margin-top:10px}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:#1a2a3a;border-radius:10px;padding:20px;border:1px solid #2d4a5e;text-align:center}
+.card .value{font-size:36px;font-weight:700;margin-bottom:4px}
+.card .label{font-size:12px;color:#85929e;text-transform:uppercase;letter-spacing:1px}
+.card.total .value{color:#5dade2}
+.card.success .value{color:#2ecc71}
+.card.error .value{color:#e74c3c}
+.card.interfaces .value{color:#f39c12}
+.table-section{background:#1a2a3a;border-radius:12px;padding:24px;border:1px solid #2d4a5e;margin-bottom:24px}
+.table-section h2{font-size:18px;color:#5dade2;margin-bottom:16px}
+table{width:100%;border-collapse:collapse}
+th{background:#243447;color:#85c1e9;padding:12px 16px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #2d4a5e}
+td{padding:10px 16px;border-bottom:1px solid #1e3448;font-size:13px}
+tr:hover{background:#1e3448}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.badge-success{background:#1a4731;color:#2ecc71}
+.badge-zero{background:#2c3e50;color:#7f8c8d}
+.badge-error{background:#4a1a1a;color:#e74c3c}
+.bar-container{width:100%;max-width:200px;height:20px;background:#0f1923;border-radius:10px;overflow:hidden;display:inline-block;vertical-align:middle}
+.bar-fill{height:100%;border-radius:10px;transition:width 0.3s}
+.bar-success{background:linear-gradient(90deg,#27ae60,#2ecc71)}
+.systems{font-size:11px;color:#85929e}
+.footer{text-align:center;color:#4a6274;font-size:12px;margin-top:24px;padding:16px}
+.chart-section{background:#1a2a3a;border-radius:12px;padding:24px;border:1px solid #2d4a5e;margin-bottom:24px}
+.chart-section h2{font-size:18px;color:#5dade2;margin-bottom:16px}
+.chart-bar-row{display:flex;align-items:center;margin-bottom:8px}
+.chart-bar-label{width:320px;font-size:12px;color:#aab7c4;text-align:right;padding-right:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chart-bar-track{flex:1;height:24px;background:#0f1923;border-radius:6px;overflow:hidden;position:relative}
+.chart-bar-fill{height:100%;border-radius:6px;min-width:2px}
+.chart-bar-count{width:50px;font-size:12px;color:#e0e6ed;padding-left:8px;font-weight:600}
+.note{background:#1b2838;border-left:3px solid #f39c12;padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:24px;font-size:13px;color:#d4ac0d}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Warehouse Management Transactions Report</h1>
+    <div class="subtitle">IBM Sterling B2B Integrator &mdash; Stage Environment</div>
+    <div class="date-badge">2 March 2026 (Today)</div>
+  </div>
+
+  <div class="note">
+    Low transaction volume today: only 1 transaction recorded. This may indicate a weekend/off-peak period or delayed processing.
+  </div>
+
+  <div class="summary-cards">
+    <div class="card total"><div class="value">1</div><div class="label">Total Transactions</div></div>
+    <div class="card success"><div class="value">1</div><div class="label">Successful</div></div>
+    <div class="card error"><div class="value">0</div><div class="label">Errors</div></div>
+    <div class="card interfaces"><div class="value">1/15</div><div class="label">Active Interfaces</div></div>
+  </div>
+
+  <div class="chart-section">
+    <h2>Transaction Volume by Interface</h2>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Outbound Delivery_IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:100%"></div></div>
+      <div class="chart-bar-count">1</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Inbound Delivery_IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Inbound Delivery Confirmation _IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Outbound Delivery Confirmation IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Sales Orders_IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Stock Adjustments/Movements_IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Information on Delivery_IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Customer Invoice IBM Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Material Master Outbound IBM Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Sales Order Outbound IBM Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Delivery ASN IBM Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">BPCOUT IBM Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Delivery Note_IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">POD Attachments_IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">Stock Reconciliation IBM_Stage</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div>
+      <div class="chart-bar-count" style="color:#7f8c8d">0</div>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <h2>Interface Details</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Interface</th>
+          <th>Entity (IDoc)</th>
+          <th>Dir</th>
+          <th>Total</th>
+          <th>Success</th>
+          <th>Error</th>
+          <th>Status</th>
+          <th>Source / Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Outbound Delivery_IBM_Stage</td>
+          <td>SHP_OBDLV_SAVE_REPLICA</td>
+          <td>O</td>
+          <td><strong>1</strong></td>
+          <td>1</td>
+          <td>0</td>
+          <td><span class="badge badge-success">OK</span></td>
+          <td class="systems">S4Hana &rarr; SA_PH_SL</td>
+        </tr>
+        <tr>
+          <td>Inbound Delivery_IBM_Stage</td>
+          <td>SHP_IBDLV_SAVE_REPLICA</td>
+          <td>I</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Inbound Delivery Confirmation _IBM_Stage</td>
+          <td>SHP_OBDLV_CONFIRM_DECENTRAL</td>
+          <td>I</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Outbound Delivery Confirmation IBM_Stage</td>
+          <td>SHPCON</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Sales Orders_IBM_Stage</td>
+          <td>ORDERS</td>
+          <td>I</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Stock Adjustments/Movements_IBM_Stage</td>
+          <td>WMMBID</td>
+          <td>I/O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Information on Delivery_IBM_Stage</td>
+          <td>STATUS</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Customer Invoice IBM Stage</td>
+          <td>INVOIC</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Material Master Outbound IBM Stage</td>
+          <td>/TNESP/MASTER</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Sales Order Outbound IBM Stage</td>
+          <td>ORDERS</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Delivery ASN IBM Stage</td>
+          <td>SHP_OBDLV_SAVE_REPLICA</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>BPCOUT IBM Stage</td>
+          <td>BPCOUT</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Delivery Note_IBM_Stage</td>
+          <td>OBDDLN</td>
+          <td>O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>POD Attachments_IBM_Stage</td>
+          <td>POD</td>
+          <td>I</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+        <tr>
+          <td>Stock Reconciliation IBM_Stage</td>
+          <td>ZREC</td>
+          <td>I/O</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="badge badge-zero">IDLE</span></td>
+          <td class="systems">&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-section">
+    <h2>Filtered Source/Target Systems (11)</h2>
+    <table>
+      <thead><tr><th>System Code</th><th>Transactions</th></tr></thead>
+      <tbody>
+        <tr><td>SA_PH_SL</td><td>1 (as target)</td></tr>
+        <tr><td>EG_PH_EP</td><td>0</td></tr>
+        <tr><td>AE_PH_KN</td><td>0</td></tr>
+        <tr><td>GH_PH_IL</td><td>0</td></tr>
+        <tr><td>MY_DI_DK</td><td>0</td></tr>
+        <tr><td>SI_PH_KE</td><td>0</td></tr>
+        <tr><td>SK_PH_DS</td><td>0</td></tr>
+        <tr><td>DSV</td><td>0</td></tr>
+        <tr><td>CZ_PH_AH</td><td>0</td></tr>
+        <tr><td>XCZ_PH_GR</td><td>0</td></tr>
+        <tr><td>XDK_DI_MS</td><td>0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Generated on 2 March 2026 &bull; ELK Index: mulesoft-pharma-stage-* &bull; Application: IBM Sterling B2B Integrator
+  </div>
+</div>
+</body>
+</html>

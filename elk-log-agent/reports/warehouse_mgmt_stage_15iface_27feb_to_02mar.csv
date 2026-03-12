@@ -1,0 +1,16 @@
+Interface Name,Day 1 Total Txn Count (2026-02-27),Day 1 Error Count (2026-02-27),Day 2 Total Txn Count (2026-02-28),Day 2 Error Count (2026-02-28),Day 3 Total Txn Count (2026-03-01),Day 3 Error Count (2026-03-01),Day 4 Total Txn Count (2026-03-02),Day 4 Error Count (2026-03-02)
+Inbound Delivery_IBM_Stage,0,0,0,0,0,0,0,0
+Outbound Delivery_IBM_Stage,19,0,7,0,4,0,1,0
+Inbound Delivery Confirmation _IBM_Stage,2,0,0,0,0,0,0,0
+Outbound Delivery Confirmation IBM_Stage,2,0,0,0,0,0,0,0
+Sales Orders_IBM_Stage,0,0,0,0,0,0,0,0
+Stock Adjustments/Movements_IBM_Stage,0,0,0,0,0,0,0,0
+Information on Delivery_IBM_Stage,15,0,5,0,4,0,0,0
+Customer Invoice IBM Stage,11,0,2,0,2,0,0,0
+Material Master Outbound IBM Stage,0,0,0,0,0,0,0,0
+Sales Order Outbound IBM Stage,0,0,0,0,0,0,0,0
+Delivery ASN IBM Stage,19,0,7,0,4,0,1,0
+BPCOUT IBM Stage,0,0,0,0,0,0,0,0
+Delivery Note_IBM_Stage,2,0,0,0,0,0,0,0
+POD Attachments_IBM_Stage,0,0,0,0,0,0,0,0
+Stock Reconciliation IBM_Stage,0,0,0,0,0,0,0,0

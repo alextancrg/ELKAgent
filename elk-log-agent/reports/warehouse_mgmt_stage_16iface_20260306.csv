@@ -1,0 +1,17 @@
+Interface,Entity,Direction,Total,Success,Error,Source Systems,Target Systems
+Inbound Delivery_IBM_Stage,SHP_IBDLV_SAVE_REPLICA,I,0,0,0,,
+Outbound Delivery_IBM_Stage,SHP_OBDLV_SAVE_REPLICA,O,8,8,0,S4Hana,"AE_PH_KN(7), SK_PH_DS(1)"
+Inbound Delivery Confirmation _IBM_Stage,SHP_OBDLV_CONFIRM_DECENTRAL,I,1,1,0,SK_PH_DS,S4Hana
+Outbound Delivery Confirmation IBM_Stage,SHPCON,I,1,1,0,SK_PH_DS,S4Hana
+Sales Orders_IBM_Stage,ORDERS,I,0,0,0,,
+Stock Adjustments/Movements_IBM_Stage,WMMBID,I/O,0,0,0,,
+Information on Delivery_IBM_Stage,STATUS,I,5,5,0,"MY_DI_DK(4), SK_PH_DS(1)",S4Hana
+Customer Invoice IBM Stage,INVOIC,O,2,2,0,S4Hana,XDK_DI_MS
+Material Master Outbound IBM Stage,/TNESP/MASTER,O,0,0,0,,
+Sales Order Outbound IBM Stage,ORDERS,O,0,0,0,,
+Delivery ASN IBM Stage,SHP_OBDLV_SAVE_REPLICA,O,0,0,0,,
+BPCOUT IBM Stage,BPCOUT,O,0,0,0,,
+Delivery Note_IBM_Stage,OBDDLN,I,1,1,0,DSV,S4Hana
+POD Attachments_IBM_Stage,POD,I,0,0,0,,
+Stock Reconciliation IBM_Stage,ZREC,I/O,0,0,0,,
+SETCCE_Invoice_Stage,SETCCE,O,0,0,0,,
