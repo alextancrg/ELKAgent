@@ -1,0 +1,17 @@
+Interface,Entity,Direction,Total,Success,Error,Source Systems,Target Systems
+Inbound Delivery_IBM_Prod,SHP_IBDLV_SAVE_REPLICA,O,25,25,0,S4Hana,MY_DI_DK
+Outbound Delivery_IBM_Prod,SHP_OBDLV_SAVE_REPLICA,O,279,279,0,S4Hana,"MY_DI_DK(242), SK_PH_DS(27), CZ_PH_AH(9), AE_PH_KN(1)"
+Inbound Delivery Confirmation _IBM_Prod,SHP_OBDLV_CONFIRM_DECENTRAL,I,345,345,0,"MY_DI_DK(312), SK_PH_DS(23), CZ_PH_AH(9), SA_PH_SL(1)",S4Hana
+Outbound Delivery Confirmation IBM_Prod,SHPCON,I,323,323,0,"MY_DI_DK(312), CZ_PH_AH(5), SK_PH_DS(5), SA_PH_SL(1)",S4Hana
+Sales Orders_IBM_Prod,ORDERS,I,80,80,0,"MY_DI_DK(43), XDK_DI_MS(33), XCZ_PH_GR(4)",S4Hana
+Stock Adjustments/Movements_IBM_Prod,MBGMCR,I,26,26,0,MY_DI_DK,S4Hana
+Information on Delivery_IBM_Prod,STATUS,I,444,444,0,"MY_DI_DK(405), SK_PH_DS(30), CZ_PH_AH(9)",S4Hana
+Customer Invoice IBM Prod,INVOIC,O,61,61,0,S4Hana,XDK_DI_MS
+Material Master Outbound IBM Prod,/TNESP/MASTER,O,0,0,0,,
+Sales Order Outbound IBM Prod,ORDERS,O,0,0,0,,
+Delivery ASN IBM Prod,SHP_OBDLV_SAVE_REPLICA,O,0,0,0,,
+BPCOUT IBM Prod,BusinessPartnerBulkReplicationOut,O,3,3,0,S4Hana,DSV
+Delivery Note_IBM_Prod,OBDDLN,I,32,32,0,"DSV(23), GRIT(9)",S4Hana
+POD Attachments_IBM_Prod,POD,I,0,0,0,,
+Stock Reconciliation IBM_Prod,ZREC,I,54,54,0,"DKSH(32), EPX(5), GRIT(4), KUEHNENAGELUAE(4), SALEHIYAH(4), DSV(3), DPWorld(2)",S4Hana
+SETCCE_Invoice_Prod,INVOIC (SETCCE),O,0,0,0,,

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wave E Local Interfaces Scope - 11 March 2026 - Prod</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#0f1923;color:#e0e6ed;min-height:100vh;padding:20px}
+.container{max-width:1500px;margin:0 auto}
+.header{background:linear-gradient(135deg,#1a2a3a,#243447);border-radius:12px;padding:30px;margin-bottom:24px;border:1px solid #2d4a5e}
+.header h1{font-size:24px;color:#5dade2;margin-bottom:8px}
+.header .subtitle{color:#85929e;font-size:14px}
+.header .date-badge{display:inline-block;background:#1b4f72;color:#85c1e9;padding:4px 14px;border-radius:20px;font-size:13px;margin-top:10px}
+.header .env-badge{display:inline-block;background:#6c3483;color:#d2b4de;padding:4px 14px;border-radius:20px;font-size:13px;margin-top:10px;margin-left:6px;font-weight:700}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.card{background:#1a2a3a;border-radius:10px;padding:20px;border:1px solid #2d4a5e;text-align:center}
+.card .value{font-size:36px;font-weight:700;margin-bottom:4px}
+.card .label{font-size:12px;color:#85929e;text-transform:uppercase;letter-spacing:1px}
+.card.total .value{color:#5dade2}
+.card.success .value{color:#2ecc71}
+.card.error .value{color:#e74c3c}
+.card.interfaces .value{color:#f39c12}
+.card.systems .value{color:#a29bfe}
+.section{background:#1a2a3a;border-radius:12px;padding:24px;border:1px solid #2d4a5e;margin-bottom:24px}
+.section h2{font-size:18px;color:#5dade2;margin-bottom:16px}
+.section h3{font-size:15px;color:#f39c12;margin:20px 0 10px 0;padding-top:16px;border-top:1px solid #2d4a5e}
+.section h3:first-of-type{border-top:none;padding-top:0;margin-top:8px}
+table{width:100%;border-collapse:collapse;margin-bottom:8px}
+th{background:#243447;color:#85c1e9;padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #2d4a5e}
+td{padding:9px 14px;border-bottom:1px solid #1e3448;font-size:13px}
+tr:hover{background:#1e3448}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.badge-success{background:#1a4731;color:#2ecc71}
+.badge-zero{background:#2c3e50;color:#7f8c8d}
+.chart-section{background:#1a2a3a;border-radius:12px;padding:24px;border:1px solid #2d4a5e;margin-bottom:24px}
+.chart-section h2{font-size:18px;color:#5dade2;margin-bottom:16px}
+.chart-bar-row{display:flex;align-items:center;margin-bottom:8px}
+.chart-bar-label{width:340px;font-size:12px;color:#aab7c4;text-align:right;padding-right:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chart-bar-track{flex:1;height:24px;background:#0f1923;border-radius:6px;overflow:hidden}
+.chart-bar-fill{height:100%;border-radius:6px;min-width:2px}
+.bar-success{background:linear-gradient(90deg,#27ae60,#2ecc71)}
+.chart-bar-count{width:60px;font-size:12px;color:#e0e6ed;padding-left:8px;font-weight:600}
+.detail-table{margin:8px 0 16px 0}
+.detail-table th{background:#1b3a4f;font-size:10px}
+.detail-table td{font-size:12px;padding:6px 12px}
+.sys-tag{display:inline-block;background:#1b4f72;color:#85c1e9;padding:2px 8px;border-radius:8px;font-size:11px;margin:1px 2px}
+.idle-note{color:#7f8c8d;font-style:italic;font-size:12px;padding:8px 0}
+.footer{text-align:center;color:#4a6274;font-size:12px;margin-top:24px;padding:16px}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Wave E Local Interfaces Scope</h1>
+    <div class="subtitle">16 Interfaces &bull; 19 Source/Target Systems</div>
+    <div class="date-badge">11 March 2026 (Full Day)</div>
+    <div class="env-badge">PROD</div>
+  </div>
+  <div class="summary-cards">
+    <div class="card total"><div class="value">1,671</div><div class="label">Total Transactions</div></div>
+    <div class="card success"><div class="value">1,671</div><div class="label">Successful</div></div>
+    <div class="card error"><div class="value">0</div><div class="label">Errors</div></div>
+    <div class="card interfaces"><div class="value">11/16</div><div class="label">Active Interfaces</div></div>
+    <div class="card systems"><div class="value">15/19</div><div class="label">Active Systems</div></div>
+  </div>
+  <div class="chart-section">
+    <h2>Transaction Volume by Interface</h2>
+    <div class="chart-bar-row"><div class="chart-bar-label">Inbound Delivery Confirmation _IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:100%"></div></div><div class="chart-bar-count">427</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Outbound Delivery Confirmation IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:100%"></div></div><div class="chart-bar-count">427</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Information on Delivery_IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:74.9%"></div></div><div class="chart-bar-count">320</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Outbound Delivery_IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:63%"></div></div><div class="chart-bar-count">269</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Inbound Delivery_IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:13.6%"></div></div><div class="chart-bar-count">58</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Customer Invoice IBM Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:12.4%"></div></div><div class="chart-bar-count">53</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Stock Reconciliation IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:9.6%"></div></div><div class="chart-bar-count">41</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Delivery Note_IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:8.2%"></div></div><div class="chart-bar-count">35</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Sales Orders_IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:7.5%"></div></div><div class="chart-bar-count">32</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">SETCCE_Invoice_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:1.9%"></div></div><div class="chart-bar-count">8</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">BPCOUT IBM Prod</div><div class="chart-bar-track"><div class="chart-bar-fill bar-success" style="width:0.2%"></div></div><div class="chart-bar-count">1</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Stock Adjustments/Movements_IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div><div class="chart-bar-count" style="color:#7f8c8d">0</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Material Master Outbound IBM Prod</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div><div class="chart-bar-count" style="color:#7f8c8d">0</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Sales Order Outbound IBM Prod</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div><div class="chart-bar-count" style="color:#7f8c8d">0</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">Delivery ASN IBM Prod</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div><div class="chart-bar-count" style="color:#7f8c8d">0</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label">POD Attachments_IBM_Prod</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:0%;background:#4a6274"></div></div><div class="chart-bar-count" style="color:#7f8c8d">0</div></div>
+  </div>
+  <div class="section">
+    <h2>Interface Summary</h2>
+    <table>
+      <thead><tr><th>Interface</th><th>Entity (IDoc)</th><th>Dir</th><th>Total</th><th>Success</th><th>Error</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Inbound Delivery Confirmation _IBM_Prod</td><td>SHP_OBDLV_CONFIRM_DECENTRAL</td><td>I</td><td><strong>427</strong></td><td>427</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Outbound Delivery Confirmation IBM_Prod</td><td>SHPCON</td><td>I</td><td><strong>427</strong></td><td>427</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Information on Delivery_IBM_Prod</td><td>STATUS</td><td>I</td><td><strong>320</strong></td><td>320</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Outbound Delivery_IBM_Prod</td><td>SHP_OBDLV_SAVE_REPLICA</td><td>O</td><td><strong>269</strong></td><td>269</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Inbound Delivery_IBM_Prod</td><td>SHP_IBDLV_SAVE_REPLICA</td><td>O</td><td><strong>58</strong></td><td>58</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Customer Invoice IBM Prod</td><td>INVOIC</td><td>O</td><td><strong>53</strong></td><td>53</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Stock Reconciliation IBM_Prod</td><td>ZREC</td><td>I</td><td><strong>41</strong></td><td>41</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Delivery Note_IBM_Prod</td><td>OBDDLN</td><td>I</td><td><strong>35</strong></td><td>35</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Sales Orders_IBM_Prod</td><td>ORDERS</td><td>I</td><td><strong>32</strong></td><td>32</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>SETCCE_Invoice_Prod</td><td>INVOIC (SETCCE)</td><td>O</td><td><strong>8</strong></td><td>8</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>BPCOUT IBM Prod</td><td>BusinessPartnerBulkReplicationOut</td><td>O</td><td><strong>1</strong></td><td>1</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>Stock Adjustments/Movements_IBM_Prod</td><td>MBGMCR</td><td>I</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>Material Master Outbound IBM Prod</td><td>/TNESP/MASTER</td><td>O</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>Sales Order Outbound IBM Prod</td><td>ORDERS</td><td>O</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>Delivery ASN IBM Prod</td><td>SHP_OBDLV_SAVE_REPLICA</td><td>O</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>POD Attachments_IBM_Prod</td><td>POD</td><td>I</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+    <h2>Interface Details &mdash; Source &amp; Target Systems</h2>
+    <h3>1. Inbound Delivery Confirmation _IBM_Prod &mdash; SHP_OBDLV_CONFIRM_DECENTRAL (I) &mdash; 427 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">MY_DI_DK</span></td><td><span class="sys-tag">S4Hana</span></td><td>392</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">SK_PH_DS</span></td><td><span class="sys-tag">S4Hana</span></td><td>20</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">CZ_PH_AH</span></td><td><span class="sys-tag">S4Hana</span></td><td>15</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>2. Outbound Delivery Confirmation IBM_Prod &mdash; SHPCON (I) &mdash; 427 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">MY_DI_DK</span></td><td><span class="sys-tag">S4Hana</span></td><td>392</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">SK_PH_DS</span></td><td><span class="sys-tag">S4Hana</span></td><td>18</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">CZ_PH_AH</span></td><td><span class="sys-tag">S4Hana</span></td><td>17</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>3. Information on Delivery_IBM_Prod &mdash; STATUS (I) &mdash; 320 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">MY_DI_DK</span></td><td><span class="sys-tag">S4Hana</span></td><td>275</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">SK_PH_DS</span></td><td><span class="sys-tag">S4Hana</span></td><td>23</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">CZ_PH_AH</span></td><td><span class="sys-tag">S4Hana</span></td><td>22</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>4. Outbound Delivery_IBM_Prod &mdash; SHP_OBDLV_SAVE_REPLICA (O) &mdash; 269 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">MY_DI_DK</span></td><td>221</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">SK_PH_DS</span></td><td>23</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">CZ_PH_AH</span></td><td>16</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">SI_PH_KE</span></td><td>8</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">GH_PH_IL</span></td><td>1</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>5. Inbound Delivery_IBM_Prod &mdash; SHP_IBDLV_SAVE_REPLICA (O) &mdash; 58 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">MY_DI_DK</span></td><td>49</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">CZ_PH_AH</span></td><td>6</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">SK_PH_DS</span></td><td>2</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">AE_PH_KN</span></td><td>1</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>6. Customer Invoice IBM Prod &mdash; INVOIC (O) &mdash; 53 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">XDK_DI_MS</span></td><td>53</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>7. Stock Reconciliation IBM_Prod &mdash; ZREC (I) &mdash; 41 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">DKSH</span></td><td><span class="sys-tag">S4Hana</span></td><td>19</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">EPX</span></td><td><span class="sys-tag">S4Hana</span></td><td>5</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">GRIT</span></td><td><span class="sys-tag">S4Hana</span></td><td>4</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">KUEHNENAGELUAE</span></td><td><span class="sys-tag">S4Hana</span></td><td>4</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">SALEHIYAH</span></td><td><span class="sys-tag">S4Hana</span></td><td>4</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">DSV</span></td><td><span class="sys-tag">S4Hana</span></td><td>3</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">DPWorld</span></td><td><span class="sys-tag">S4Hana</span></td><td>2</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>8. Delivery Note_IBM_Prod &mdash; OBDDLN (I) &mdash; 35 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">DSV</span></td><td><span class="sys-tag">S4Hana</span></td><td>20</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">GRIT</span></td><td><span class="sys-tag">S4Hana</span></td><td>15</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>9. Sales Orders_IBM_Prod &mdash; ORDERS (I) &mdash; 32 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">XDK_DI_MS</span></td><td><span class="sys-tag">S4Hana</span></td><td>27</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td><span class="sys-tag">MY_DI_DK</span></td><td><span class="sys-tag">S4Hana</span></td><td>5</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>10. SETCCE_Invoice_Prod &mdash; INVOIC via SETCCE (O) &mdash; 8 txns</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">S4hana</span></td><td><span class="sys-tag">XSI_PH_SE</span></td><td>8</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>11. BPCOUT IBM Prod &mdash; BusinessPartnerBulkReplicationOut (O) &mdash; 1 txn</h3>
+    <table class="detail-table">
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">S4Hana</span></td><td><span class="sys-tag">DSV</span></td><td>1</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>12. Stock Adjustments/Movements_IBM_Prod &mdash; MBGMCR (I)</h3>
+    <p class="idle-note">No transactions recorded on 11 March 2026.</p>
+
+    <h3>13. Material Master Outbound IBM Prod &mdash; /TNESP/MASTER (O)</h3>
+    <p class="idle-note">No transactions recorded on 11 March 2026.</p>
+
+    <h3>14. Sales Order Outbound IBM Prod &mdash; ORDERS (O)</h3>
+    <p class="idle-note">No transactions recorded on 11 March 2026.</p>
+
+    <h3>15. Delivery ASN IBM Prod &mdash; SHP_OBDLV_SAVE_REPLICA (O)</h3>
+    <p class="idle-note">No transactions recorded on 11 March 2026.</p>
+
+    <h3>16. POD Attachments_IBM_Prod &mdash; POD (I)</h3>
+    <p class="idle-note">No transactions recorded on 11 March 2026.</p>
+  </div>
+
+  <div class="section">
+    <h2>Source/Target Systems Activity (19 Filtered)</h2>
+    <table>
+      <thead><tr><th>System Code</th><th>As Source</th><th>As Target</th><th>Total Involvement</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sys-tag">MY_DI_DK</span></td><td>1,064</td><td>270</td><td>1,334</td></tr>
+        <tr><td><span class="sys-tag">SK_PH_DS</span></td><td>61</td><td>25</td><td>86</td></tr>
+        <tr><td><span class="sys-tag">XDK_DI_MS</span></td><td>27</td><td>53</td><td>80</td></tr>
+        <tr><td><span class="sys-tag">CZ_PH_AH</span></td><td>54</td><td>22</td><td>76</td></tr>
+        <tr><td><span class="sys-tag">DSV</span></td><td>23</td><td>1</td><td>24</td></tr>
+        <tr><td><span class="sys-tag">DKSH</span></td><td>19</td><td>0</td><td>19</td></tr>
+        <tr><td><span class="sys-tag">GRIT</span></td><td>19</td><td>0</td><td>19</td></tr>
+        <tr><td><span class="sys-tag">XSI_PH_SE</span></td><td>0</td><td>8</td><td>8</td></tr>
+        <tr><td><span class="sys-tag">SI_PH_KE</span></td><td>0</td><td>8</td><td>8</td></tr>
+        <tr><td><span class="sys-tag">EPX</span></td><td>5</td><td>0</td><td>5</td></tr>
+        <tr><td><span class="sys-tag">KUEHNENAGELUAE</span></td><td>4</td><td>0</td><td>4</td></tr>
+        <tr><td><span class="sys-tag">SALEHIYAH</span></td><td>4</td><td>0</td><td>4</td></tr>
+        <tr><td><span class="sys-tag">DPWorld</span></td><td>2</td><td>0</td><td>2</td></tr>
+        <tr><td><span class="sys-tag">AE_PH_KN</span></td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td><span class="sys-tag">GH_PH_IL</span></td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>EG_PH_EP</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>SA_PH_SL</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>XCZ_PH_GR</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>MYSUPPLY</td><td>0</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Wave E Local Interfaces Scope &bull; 11 March 2026 (Full Day) &bull; ELK Index: mulesoft-pharma-prod-* &bull; PROD Environment &bull; 16 Interfaces &bull; 19 Systems
+  </div>
+</div>
+</body>
+</html>

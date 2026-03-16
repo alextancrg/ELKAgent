@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wave E Local Interfaces Scope - 13 March 2026 - PROD</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1923; color: #e0e0e0; padding: 20px; }
+  .container { max-width: 1400px; margin: 0 auto; }
+  .header { text-align: center; padding: 30px 0; border-bottom: 2px solid #1e88e5; margin-bottom: 30px; }
+  .header h1 { font-size: 28px; color: #fff; margin-bottom: 8px; }
+  .header .subtitle { font-size: 16px; color: #90caf9; }
+  .badge-env { display: inline-block; padding: 4px 16px; border-radius: 12px; font-size: 13px; font-weight: 600; margin-top: 8px; }
+  .badge-prod { background: #c62828; color: #fff; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 30px; }
+  .card { background: #1a2733; border-radius: 10px; padding: 20px; text-align: center; border: 1px solid #263545; }
+  .card .value { font-size: 36px; font-weight: 700; color: #42a5f5; }
+  .card .label { font-size: 13px; color: #90a4ae; margin-top: 4px; }
+  .card.success .value { color: #66bb6a; }
+  .card.error .value { color: #ef5350; }
+  .card.active .value { color: #ffa726; }
+  .section { background: #1a2733; border-radius: 10px; padding: 24px; margin-bottom: 24px; border: 1px solid #263545; }
+  .section h2 { font-size: 20px; color: #42a5f5; margin-bottom: 16px; border-bottom: 1px solid #263545; padding-bottom: 8px; }
+  .section h3 { font-size: 16px; color: #90caf9; margin: 20px 0 10px 0; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  th { background: #263545; color: #90caf9; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1e2d3d; font-size: 13px; }
+  tr:hover { background: #1e2d3d; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-success { background: #1b5e20; color: #a5d6a7; }
+  .badge-error { background: #b71c1c; color: #ef9a9a; }
+  .badge-zero { background: #37474f; color: #78909c; }
+  .bar-chart { margin: 20px 0; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 6px; }
+  .bar-label { width: 280px; font-size: 12px; color: #b0bec5; text-align: right; padding-right: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; height: 22px; background: #263545; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 30px; }
+  .bar-fill.success { background: linear-gradient(90deg, #2e7d32, #43a047); }
+  .idle-msg { color: #546e7a; font-style: italic; font-size: 13px; margin: 8px 0 16px 0; }
+  .footer { text-align: center; padding: 20px 0; color: #546e7a; font-size: 12px; margin-top: 30px; border-top: 1px solid #263545; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Wave E Local Interfaces Scope</h1>
+    <div class="subtitle">13 March 2026 (Full Day &mdash; Friday)</div>
+    <span class="badge-env badge-prod">PROD</span>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="value">1,448</div><div class="label">Total Transactions</div></div>
+    <div class="card success"><div class="value">1,448</div><div class="label">Success</div></div>
+    <div class="card error"><div class="value">0</div><div class="label">Errors</div></div>
+    <div class="card active"><div class="value">12 / 16</div><div class="label">Active Interfaces</div></div>
+    <div class="card active"><div class="value">15 / 19</div><div class="label">Active Systems</div></div>
+  </div>
+  <div class="section">
+    <h2>Transaction Volume by Interface</h2>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">Information on Delivery (STATUS)</div><div class="bar-track"><div class="bar-fill success" style="width:100%">351</div></div></div>
+      <div class="bar-row"><div class="bar-label">Outbound Delivery (SHP_OBDLV_SAVE_REPLICA)</div><div class="bar-track"><div class="bar-fill success" style="width:90.9%">319</div></div></div>
+      <div class="bar-row"><div class="bar-label">Inbound Delivery Confirmation (SHP_OBDLV_CONFIRM_DECENTRAL)</div><div class="bar-track"><div class="bar-fill success" style="width:75.2%">264</div></div></div>
+      <div class="bar-row"><div class="bar-label">Outbound Delivery Confirmation (SHPCON)</div><div class="bar-track"><div class="bar-fill success" style="width:63.8%">224</div></div></div>
+      <div class="bar-row"><div class="bar-label">Customer Invoice (INVOIC)</div><div class="bar-track"><div class="bar-fill success" style="width:29.9%">105</div></div></div>
+      <div class="bar-row"><div class="bar-label">Delivery Note (OBDDLN)</div><div class="bar-track"><div class="bar-fill success" style="width:21.1%">74</div></div></div>
+      <div class="bar-row"><div class="bar-label">Sales Orders (ORDERS I)</div><div class="bar-track"><div class="bar-fill success" style="width:12.8%">45</div></div></div>
+      <div class="bar-row"><div class="bar-label">Stock Reconciliation (ZREC)</div><div class="bar-track"><div class="bar-fill success" style="width:11.1%">39</div></div></div>
+      <div class="bar-row"><div class="bar-label">Inbound Delivery (SHP_IBDLV_SAVE_REPLICA)</div><div class="bar-track"><div class="bar-fill success" style="width:3.7%">13</div></div></div>
+      <div class="bar-row"><div class="bar-label">SETCCE Invoice (INVOIC SETCCE)</div><div class="bar-track"><div class="bar-fill success" style="width:2.3%">8</div></div></div>
+      <div class="bar-row"><div class="bar-label">Stock Adjustments/Movements (MBGMCR)</div><div class="bar-track"><div class="bar-fill success" style="width:0.9%">3</div></div></div>
+      <div class="bar-row"><div class="bar-label">BPCOUT (BusinessPartnerBulkReplicationOut)</div><div class="bar-track"><div class="bar-fill success" style="width:0.9%">3</div></div></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Interface Summary</h2>
+    <table>
+      <thead><tr><th>#</th><th>Interface</th><th>Entity</th><th>Dir</th><th>Total</th><th>Success</th><th>Error</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Inbound Delivery_Prod</td><td>SHP_IBDLV_SAVE_REPLICA</td><td>O</td><td>13</td><td>13</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>2</td><td>Outbound Delivery_Prod</td><td>SHP_OBDLV_SAVE_REPLICA</td><td>O</td><td>319</td><td>319</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>3</td><td>Inbound Delivery Confirmation_Prod</td><td>SHP_OBDLV_CONFIRM_DECENTRAL</td><td>I</td><td>264</td><td>264</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>4</td><td>Outbound Delivery Confirmation_Prod</td><td>SHPCON</td><td>I</td><td>224</td><td>224</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>5</td><td>Sales Orders_Prod</td><td>ORDERS</td><td>I</td><td>45</td><td>45</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>6</td><td>Stock Adjustments/Movements_Prod</td><td>MBGMCR</td><td>I</td><td>3</td><td>3</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>7</td><td>Information on Delivery_Prod</td><td>STATUS</td><td>I</td><td>351</td><td>351</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>8</td><td>Customer Invoice_Prod</td><td>INVOIC</td><td>O</td><td>105</td><td>105</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>9</td><td>Material Master Outbound_Prod</td><td>/TNESP/MASTER</td><td>O</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>10</td><td>Sales Order Outbound_Prod</td><td>ORDERS</td><td>O</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>11</td><td>Delivery ASN_Prod</td><td>SHP_OBDLV_SAVE_REPLICA</td><td>O</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>12</td><td>BPCOUT_Prod</td><td>BusinessPartnerBulkReplicationOut</td><td>O</td><td>3</td><td>3</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>13</td><td>Delivery Note_Prod</td><td>OBDDLN</td><td>I</td><td>74</td><td>74</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>14</td><td>POD Attachments_Prod</td><td>POD</td><td>I</td><td>0</td><td>0</td><td>0</td><td><span class="badge badge-zero">IDLE</span></td></tr>
+        <tr><td>15</td><td>Stock Reconciliation_Prod</td><td>ZREC</td><td>I</td><td>39</td><td>39</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+        <tr><td>16</td><td>SETCCE_Invoice_Prod</td><td>INVOIC (SETCCE)</td><td>O</td><td>8</td><td>8</td><td>0</td><td><span class="badge badge-success">OK</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+    <h2>Interface Details</h2>
+    <h3>1. Inbound Delivery_Prod &mdash; SHP_IBDLV_SAVE_REPLICA (O) &mdash; 13 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>S4Hana</td><td>SK_PH_DS</td><td>7</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>S4Hana</td><td>MY_DI_DK</td><td>5</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>S4Hana</td><td>EG_PH_EP</td><td>1</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>2. Outbound Delivery_Prod &mdash; SHP_OBDLV_SAVE_REPLICA (O) &mdash; 319 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>S4Hana</td><td>MY_DI_DK</td><td>225</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>S4Hana</td><td>SK_PH_DS</td><td>77</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>S4Hana</td><td>CZ_PH_AH</td><td>16</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>S4Hana</td><td>GH_PH_IL</td><td>1</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>3. Inbound Delivery Confirmation_Prod &mdash; SHP_OBDLV_CONFIRM_DECENTRAL (I) &mdash; 264 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>MY_DI_DK</td><td>S4Hana</td><td>186</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>SK_PH_DS</td><td>S4Hana</td><td>58</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>CZ_PH_AH</td><td>S4Hana</td><td>17</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>SI_PH_KE</td><td>S4Hana</td><td>3</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>4. Outbound Delivery Confirmation_Prod &mdash; SHPCON (I) &mdash; 224 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>MY_DI_DK</td><td>S4Hana</td><td>186</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>SK_PH_DS</td><td>S4Hana</td><td>23</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>CZ_PH_AH</td><td>S4Hana</td><td>15</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>5. Sales Orders_Prod &mdash; ORDERS (I) &mdash; 45 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>XDK_DI_MS</td><td>S4Hana</td><td>45</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>6. Stock Adjustments/Movements_Prod &mdash; MBGMCR (I) &mdash; 3 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>MY_DI_DK</td><td>S4Hana</td><td>3</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>7. Information on Delivery_Prod &mdash; STATUS (I) &mdash; 351 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>MY_DI_DK</td><td>S4Hana</td><td>238</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>SK_PH_DS</td><td>S4Hana</td><td>81</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>CZ_PH_AH</td><td>S4Hana</td><td>16</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>SI_PH_KE</td><td>S4Hana</td><td>12</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>GH_PH_IL</td><td>S4Hana</td><td>4</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>8. Customer Invoice_Prod &mdash; INVOIC (O) &mdash; 105 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>S4Hana</td><td>XDK_DI_MS</td><td>105</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>9. Material Master Outbound_Prod &mdash; /TNESP/MASTER (O) &mdash; 0 txns</h3>
+    <p class="idle-msg">No transactions recorded on 13 March 2026.</p>
+    <h3>10. Sales Order Outbound_Prod &mdash; ORDERS (O) &mdash; 0 txns</h3>
+    <p class="idle-msg">No transactions recorded on 13 March 2026.</p>
+    <h3>11. Delivery ASN_Prod &mdash; SHP_OBDLV_SAVE_REPLICA (O) &mdash; 0 txns</h3>
+    <p class="idle-msg">No transactions recorded on 13 March 2026.</p>
+    <h3>12. BPCOUT_Prod &mdash; BusinessPartnerBulkReplicationOut (O) &mdash; 3 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>S4Hana</td><td>DSV</td><td>3</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>13. Delivery Note_Prod &mdash; OBDDLN (I) &mdash; 74 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>DSV</td><td>S4Hana</td><td>58</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>GRIT</td><td>S4Hana</td><td>16</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>14. POD Attachments_Prod &mdash; POD (I) &mdash; 0 txns</h3>
+    <p class="idle-msg">No transactions recorded on 13 March 2026.</p>
+    <h3>15. Stock Reconciliation_Prod &mdash; ZREC (I) &mdash; 39 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>DKSH</td><td>S4Hana</td><td>17</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>EPX</td><td>S4Hana</td><td>5</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>GRIT</td><td>S4Hana</td><td>4</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>KUEHNENAGELUAE</td><td>S4Hana</td><td>4</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>SALEHIYAH</td><td>S4Hana</td><td>4</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>DSV</td><td>S4Hana</td><td>3</td><td><span class="badge badge-success">Success</span></td></tr>
+        <tr><td>DPWorld</td><td>S4Hana</td><td>2</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+    <h3>16. SETCCE_Invoice_Prod &mdash; INVOIC (SETCCE) (O) &mdash; 8 txns</h3>
+    <table>
+      <thead><tr><th>Source System</th><th>Target System</th><th>Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>S4Hana</td><td>XSI_PH_SE</td><td>8</td><td><span class="badge badge-success">Success</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+    <h2>Systems Activity Summary</h2>
+    <table>
+      <thead><tr><th>System</th><th>Role(s)</th><th>Transaction Count</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>MY_DI_DK</td><td>Source / Target</td><td>843</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>SK_PH_DS</td><td>Source / Target</td><td>246</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>XDK_DI_MS</td><td>Source / Target</td><td>150</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>CZ_PH_AH</td><td>Source / Target</td><td>64</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>DSV</td><td>Source / Target</td><td>64</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>GRIT</td><td>Source</td><td>20</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>DKSH</td><td>Source</td><td>17</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>SI_PH_KE</td><td>Source</td><td>15</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>XSI_PH_SE</td><td>Target</td><td>8</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>GH_PH_IL</td><td>Source / Target</td><td>5</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>EPX</td><td>Source</td><td>5</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>KUEHNENAGELUAE</td><td>Source</td><td>4</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>SALEHIYAH</td><td>Source</td><td>4</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>DPWorld</td><td>Source</td><td>2</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>EG_PH_EP</td><td>Target</td><td>1</td><td><span class="badge badge-success">Active</span></td></tr>
+        <tr><td>AE_PH_KN</td><td>&mdash;</td><td>0</td><td><span class="badge badge-zero">Idle</span></td></tr>
+        <tr><td>SA_PH_SL</td><td>&mdash;</td><td>0</td><td><span class="badge badge-zero">Idle</span></td></tr>
+        <tr><td>MYSUPPLY</td><td>&mdash;</td><td>0</td><td><span class="badge badge-zero">Idle</span></td></tr>
+        <tr><td>XCZ_PH_GR</td><td>&mdash;</td><td>0</td><td><span class="badge badge-zero">Idle</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer">
+    Wave E Local Interfaces Scope &mdash; PROD &mdash; 13 March 2026 (Full Day &mdash; Friday) &mdash; Generated by ELK Log Agent
+  </div>
+</div>
+</body>
+</html>
