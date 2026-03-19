@@ -13,22 +13,38 @@ on:
         required: false
         type: string
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
 jobs:
   generate-report:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 10
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install jq
+      - name: Verify dependencies
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq jq
+          echo "Checking required tools..."
+          command -v curl >/dev/null 2>&1 || { echo "ERROR: curl not found"; exit 1; }
+          command -v jq >/dev/null 2>&1 || { echo "ERROR: jq not found. Install with: sudo apt-get install -y jq"; exit 1; }
+          command -v bash >/dev/null 2>&1 || { echo "ERROR: bash not found"; exit 1; }
+          echo "All dependencies available."
+
+      - name: Test ELK connectivity
+        env:
+          ELK_PROD_ENDPOINT: ${{ secrets.ELK_PROD_ENDPOINT }}
+        run: |
+          echo "Testing connectivity to ELK endpoint..."
+          curl -s -k --max-time 10 -o /dev/null -w "HTTP Status: %{http_code}\n" "${ELK_PROD_ENDPOINT}" || {
+            echo "ERROR: Cannot reach ELK endpoint. Ensure this runner is inside the Roche network."
+            exit 1
+          }
 
       - name: Generate report
         env:
@@ -38,7 +54,6 @@ jobs:
           cd elk-log-agent
           chmod +x daily_wave_e_report.sh
 
-          # Use input date if provided, otherwise script defaults to yesterday
           if [ -n "${{ github.event.inputs.report_date }}" ]; then
             bash daily_wave_e_report.sh "${{ github.event.inputs.report_date }}"
           else
@@ -60,6 +75,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add elk-log-agent/reports/wave_e_overall_local_interfaces_scope_*_prod.csv \
                   elk-log-agent/reports/wave_e_overall_local_interfaces_scope_*_prod.html
-          # Only commit if there are changes
           git diff --staged --quiet || git commit -m "Daily Wave E report - $(date -u '+%Y-%m-%d')"
           git push
