@@ -1,0 +1,146 @@
+name: Daily Wave E Report
+
+on:
+  # Runs daily at 23:58 UTC (matches GitLab schedule)
+  schedule:
+    - cron: '58 23 * * *'
+
+  # Manual trigger with optional date and mode
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: 'Report date (YYYY-MM-DD). Leave empty for yesterday.'
+        required: false
+        type: string
+      report_mode:
+        description: 'Report mode: "daily" (full day) or "today" (00:00 UTC to now)'
+        required: false
+        default: 'daily'
+        type: choice
+        options:
+          - daily
+          - today
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  # Scheduled daily report — yesterday's full 24h window
+  wave-e-daily-report:
+    if: github.event.inputs.report_mode != 'today'
+    runs-on: self-hosted
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify dependencies
+        run: |
+          for cmd in curl jq bash; do
+            command -v $cmd >/dev/null 2>&1 || { echo "Missing: $cmd"; exit 1; }
+          done
+          echo "All dependencies available."
+
+      - name: Test ELK connectivity
+        env:
+          ELK_PROD_ENDPOINT: ${{ secrets.ELK_PROD_ENDPOINT }}
+        run: |
+          curl -s -k --max-time 10 -o /dev/null -w "ELK HTTP status: %{http_code}\n" \
+            "${ELK_PROD_ENDPOINT:-https://integration-monitoring-lb.roche.com:9200}" || {
+            echo "WARNING: Cannot reach ELK endpoint"
+            exit 1
+          }
+
+      - name: Generate daily report (with archive rotation)
+        env:
+          ELK_PROD_ENDPOINT: ${{ secrets.ELK_PROD_ENDPOINT }}
+          ELK_PROD_APIKEY: ${{ secrets.ELK_PROD_APIKEY }}
+          GOOGLE_CHAT_WEBHOOK_URL: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+        run: |
+          cd elk-log-agent
+          chmod +x run-wave-e-report.sh daily_wave_e_report.sh
+
+          if [ -n "${{ github.event.inputs.report_date }}" ]; then
+            bash run-wave-e-report.sh "${{ github.event.inputs.report_date }}"
+          else
+            bash run-wave-e-report.sh
+          fi
+
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave-e-report-${{ github.event.inputs.report_date || 'daily' }}
+          path: |
+            elk-log-agent/latest/*.csv
+            elk-log-agent/latest/*.html
+          retention-days: 90
+
+      - name: Commit reports to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add elk-log-agent/latest/ elk-log-agent/archive/ 2>/dev/null || true
+          git diff --staged --quiet || {
+            git commit -m "ci: Wave E report $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          }
+
+  # Manual "today" report — today 00:00 UTC to now
+  wave-e-today-report:
+    if: github.event.inputs.report_mode == 'today'
+    runs-on: self-hosted
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify dependencies
+        run: |
+          for cmd in curl jq bash; do
+            command -v $cmd >/dev/null 2>&1 || { echo "Missing: $cmd"; exit 1; }
+          done
+          echo "All dependencies available."
+
+      - name: Test ELK connectivity
+        env:
+          ELK_PROD_ENDPOINT: ${{ secrets.ELK_PROD_ENDPOINT }}
+        run: |
+          curl -s -k --max-time 10 -o /dev/null -w "ELK HTTP status: %{http_code}\n" \
+            "${ELK_PROD_ENDPOINT:-https://integration-monitoring-lb.roche.com:9200}" || {
+            echo "WARNING: Cannot reach ELK endpoint"
+            exit 1
+          }
+
+      - name: Generate today report
+        env:
+          ELK_PROD_ENDPOINT: ${{ secrets.ELK_PROD_ENDPOINT }}
+          ELK_PROD_APIKEY: ${{ secrets.ELK_PROD_APIKEY }}
+          GOOGLE_CHAT_WEBHOOK_URL: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+        run: |
+          cd elk-log-agent
+          chmod +x daily_wave_e_report.sh
+          bash daily_wave_e_report.sh today
+
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave-e-report-today
+          path: |
+            elk-log-agent/latest/*.csv
+            elk-log-agent/latest/*.html
+          retention-days: 90
+
+      - name: Commit reports to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add elk-log-agent/latest/ elk-log-agent/archive/ 2>/dev/null || true
+          git diff --staged --quiet || {
+            git commit -m "ci: Wave E today report $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          }
