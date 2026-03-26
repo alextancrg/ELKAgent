@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wave E APAC Local Interfaces Scope - 5 Mar 2026 to 25 Mar 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f1923;color:#e0e0e0;padding:20px}
+.container{max-width:1400px;margin:0 auto}
+h1{color:#00d4ff;margin-bottom:5px;font-size:1.6em}
+h2{color:#00d4ff;margin:25px 0 15px;font-size:1.2em;border-bottom:1px solid #2a3744;padding-bottom:8px}
+h3{color:#ffa726;margin:20px 0 10px;font-size:1.05em}
+.subtitle{color:#8899aa;margin-bottom:25px;font-size:0.95em}
+.summary-cards{display:flex;gap:15px;margin-bottom:25px;flex-wrap:wrap}
+.card{background:#1a2733;border-radius:8px;padding:15px 20px;flex:1;min-width:160px;border-left:3px solid #00d4ff}
+.card-label{color:#8899aa;font-size:0.8em;text-transform:uppercase}
+.card-value{color:#fff;font-size:1.5em;font-weight:700;margin-top:4px}
+.card.success{border-left-color:#00e676}
+.card.warning{border-left-color:#ffa726}
+.card.info{border-left-color:#29b6f6}
+.chart-section{background:#1a2733;border-radius:8px;padding:20px;margin-bottom:25px;overflow:visible}
+.chart-area{position:relative;width:100%;height:300px;margin-top:10px}
+.chart-bars{display:flex;align-items:flex-end;justify-content:space-around;height:250px;padding:0 10px;gap:6px}
+.chart-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+.chart-val{font-size:0.75em;color:#fff;font-weight:700;margin-bottom:4px;white-space:nowrap}
+.chart-bar{width:80%;max-width:60px;border-radius:4px 4px 0 0;background:linear-gradient(to top,#00838f,#00d4ff);min-height:2px;transition:all 0.3s}
+.chart-bar:hover{opacity:0.85;transform:scaleY(1.02);transform-origin:bottom}
+.chart-bar.zero{background:#37474f}
+.chart-lbl{font-size:0.68em;color:#8899aa;margin-top:8px;text-align:center;line-height:1.2;word-break:break-word;max-width:80px}
+table{width:100%;border-collapse:collapse;margin-bottom:15px;font-size:0.85em}
+th{background:#0d1b27;color:#00d4ff;padding:10px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #1e2d3d}
+tr:hover{background:#1e2d3d}
+.section{background:#1a2733;border-radius:8px;padding:20px;margin-bottom:15px}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75em;margin:1px}
+.tag-source{background:#1b5e20;color:#69f0ae}
+.tag-target{background:#0d47a1;color:#64b5f6}
+.tag-zero{background:#37474f;color:#78909c}
+.tag-success{background:#1b5e20;color:#69f0ae}
+.tag-dir-i{background:#4a148c;color:#ce93d8}
+.tag-dir-o{background:#e65100;color:#ffcc80}
+.region-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:0.7em;background:#00695c;color:#80cbc4;margin-left:4px}
+.sys-count{color:#aaa;font-size:0.85em}
+.additional{border-left:3px solid #ff9800;background:#1a2733;border-radius:8px;padding:20px;margin-bottom:15px}
+footer{text-align:center;color:#556;margin-top:30px;padding:15px;font-size:0.8em;border-top:1px solid #1e2d3d}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Wave E APAC Local Interfaces Scope</h1>
+<p class="subtitle">5 Mar 2026 to 25 Mar 2026 | Prod Environment | 8 APAC Systems</p>
+
+<div class="summary-cards">
+<div class="card"><div class="card-label">Total Transactions</div><div class="card-value">11,258</div></div>
+<div class="card success"><div class="card-label">Success Rate</div><div class="card-value">100%</div></div>
+<div class="card warning"><div class="card-label">Active Interfaces</div><div class="card-value">8 / 8</div></div>
+<div class="card info"><div class="card-label">APAC Systems</div><div class="card-value">8</div></div>
+</div>
+
+<div class="chart-section">
+<h2 style="margin-top:0;border:none;padding:0">Transaction Volume by Interface</h2>
+<div class="chart-area">
+<div class="chart-bars">
+<div class="chart-col"><div class="chart-val">226</div><div class="chart-bar" style="height:19px"></div><div class="chart-lbl">Inbound Delivery</div></div>
+<div class="chart-col"><div class="chart-val">2,636</div><div class="chart-bar" style="height:223px"></div><div class="chart-lbl">Outbound Delivery</div></div>
+<div class="chart-col"><div class="chart-val">2,183</div><div class="chart-bar" style="height:185px"></div><div class="chart-lbl">IB Dlv Confirm</div></div>
+<div class="chart-col"><div class="chart-val">2,175</div><div class="chart-bar" style="height:184px"></div><div class="chart-lbl">OB Dlv Confirm</div></div>
+<div class="chart-col"><div class="chart-val">218</div><div class="chart-bar" style="height:18px"></div><div class="chart-lbl">Sales Orders</div></div>
+<div class="chart-col"><div class="chart-val">300</div><div class="chart-bar" style="height:25px"></div><div class="chart-lbl">Stock Adj/Mov</div></div>
+<div class="chart-col"><div class="chart-val">2,866</div><div class="chart-bar" style="height:243px"></div><div class="chart-lbl">Info on Delivery</div></div>
+<div class="chart-col"><div class="chart-val">654</div><div class="chart-bar" style="height:55px"></div><div class="chart-lbl">Stock Recon</div></div>
+</div>
+</div>
+</div>
+
+<h2>Summary Table</h2>
+<div class="section">
+<table>
+<thead><tr><th>#</th><th>Interface</th><th>Entity</th><th>Dir</th><th>Total</th><th>Success</th><th>Failed</th><th>Source Systems</th><th>Target Systems</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Inbound Delivery</td><td>SHP_IBDLV_SAVE_REPLICA</td><td><span class="tag tag-dir-o">O</span></td><td>226</td><td><span class="tag tag-success">226</span></td><td>0</td><td>S4Hana</td><td>MY_DI_DK(214) AE_PH_KN(10) EG_PH_EP(1) SA_PH_SL(1)</td></tr>
+<tr><td>2</td><td>Outbound Delivery</td><td>SHP_OBDLV_SAVE_REPLICA</td><td><span class="tag tag-dir-o">O</span></td><td>2,636</td><td><span class="tag tag-success">2,636</span></td><td>0</td><td>S4Hana</td><td>MY_DI_DK(2559) AE_PH_KN(42) SA_PH_SL(32) EG_PH_EP(3)</td></tr>
+<tr><td>3</td><td>Inbound Delivery Confirmation</td><td>SHP_OBDLV_CONFIRM_DECENTRAL</td><td><span class="tag tag-dir-i">I</span></td><td>2,183</td><td><span class="tag tag-success">2,183</span></td><td>0</td><td>MY_DI_DK(2168) AE_PH_KN(9) EG_PH_EP(3) SA_PH_SL(3)</td><td>S4Hana</td></tr>
+<tr><td>4</td><td>Outbound Delivery Confirmation</td><td>SHPCON</td><td><span class="tag tag-dir-i">I</span></td><td>2,175</td><td><span class="tag tag-success">2,175</span></td><td>0</td><td>MY_DI_DK(2168) SA_PH_SL(5) EG_PH_EP(2)</td><td>S4Hana</td></tr>
+<tr><td>5</td><td>Sales Orders</td><td>ORDERS</td><td><span class="tag tag-dir-i">I</span></td><td>218</td><td><span class="tag tag-success">218</span></td><td>0</td><td>MY_DI_DK(218)</td><td>S4Hana</td></tr>
+<tr><td>6</td><td>Stock Adjustments/Movements</td><td>MBGMCR</td><td><span class="tag tag-dir-i">I</span></td><td>300</td><td><span class="tag tag-success">300</span></td><td>0</td><td>MY_DI_DK(291) AE_PH_KN(6) SA_PH_SL(3)</td><td>S4Hana</td></tr>
+<tr><td>7</td><td>Information on Delivery</td><td>STATUS</td><td><span class="tag tag-dir-i">I</span></td><td>2,866</td><td><span class="tag tag-success">2,866</span></td><td>0</td><td>MY_DI_DK(2833) SA_PH_SL(33)</td><td>S4Hana</td></tr>
+<tr><td>8</td><td>Stock Reconciliation</td><td>ZREC</td><td><span class="tag tag-dir-i">I</span></td><td>654</td><td><span class="tag tag-success">654</span></td><td>0</td><td>DKSH(365) EPX(136) KUEHNENAGELUAE(81) SALEHIYAH(72)</td><td>S4Hana</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Interface Details</h2>
+
+<!-- Interface 1 -->
+<h3>1. Inbound Delivery &mdash; SHP_IBDLV_SAVE_REPLICA <span class="tag tag-dir-o">O</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>226</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">226 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">S4Hana (226)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">MY_DI_DK (214)</span> <span class="tag tag-target">AE_PH_KN (10)</span> <span class="tag tag-target">EG_PH_EP (1)</span> <span class="tag tag-target">SA_PH_SL (1)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 2 -->
+<h3>2. Outbound Delivery &mdash; SHP_OBDLV_SAVE_REPLICA <span class="tag tag-dir-o">O</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>2,636</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">2,636 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">S4Hana (2,636)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">MY_DI_DK (2,559)</span> <span class="tag tag-target">AE_PH_KN (42)</span> <span class="tag tag-target">SA_PH_SL (32)</span> <span class="tag tag-target">EG_PH_EP (3)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 3 -->
+<h3>3. Inbound Delivery Confirmation &mdash; SHP_OBDLV_CONFIRM_DECENTRAL <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>2,183</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">2,183 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">MY_DI_DK (2,168)</span> <span class="tag tag-source">AE_PH_KN (9)</span> <span class="tag tag-source">EG_PH_EP (3)</span> <span class="tag tag-source">SA_PH_SL (3)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (2,183)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 4 -->
+<h3>4. Outbound Delivery Confirmation &mdash; SHPCON <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>2,175</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">2,175 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">MY_DI_DK (2,168)</span> <span class="tag tag-source">SA_PH_SL (5)</span> <span class="tag tag-source">EG_PH_EP (2)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (2,175)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 5 -->
+<h3>5. Sales Orders &mdash; ORDERS <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>218</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">218 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">MY_DI_DK (218)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (218)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 6 -->
+<h3>6. Stock Adjustments/Movements &mdash; MBGMCR <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>300</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">300 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">MY_DI_DK (291)</span> <span class="tag tag-source">AE_PH_KN (6)</span> <span class="tag tag-source">SA_PH_SL (3)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (300)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 7 -->
+<h3>7. Information on Delivery &mdash; STATUS <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>2,866</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">2,866 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">MY_DI_DK (2,833)</span> <span class="tag tag-source">SA_PH_SL (33)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (2,866)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 8 -->
+<h3>8. Stock Reconciliation &mdash; ZREC <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>654</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">654 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">DKSH (365)</span> <span class="tag tag-source">EPX (136)</span> <span class="tag tag-source">KUEHNENAGELUAE (81)</span> <span class="tag tag-source">SALEHIYAH (72)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (654)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Additional Entities Detected -->
+<h2>Additional Entities Detected</h2>
+<div class="additional">
+<p style="color:#ffa726;margin-bottom:12px">The following entities were found in APAC system transactions but are not part of the 8 requested interfaces:</p>
+<table>
+<thead><tr><th>Entity</th><th>Direction</th><th>Total</th><th>Success</th><th>Source Systems</th><th>Target Systems</th></tr></thead>
+<tbody>
+<tr><td>SHP_IBDLV_CONFIRM_DECENTRAL</td><td><span class="tag tag-dir-i">I</span></td><td>34</td><td><span class="tag tag-success">34</span></td><td><span class="tag tag-source">MY_DI_DK (32)</span> <span class="tag tag-source">AE_PH_KN (1)</span> <span class="tag tag-source">EG_PH_EP (1)</span></td><td><span class="tag tag-target">S4Hana (34)</span></td></tr>
+<tr><td>ORDRSP</td><td><span class="tag tag-dir-o">O</span></td><td>31</td><td><span class="tag tag-success">31</span></td><td><span class="tag tag-source">S4Hana (31)</span></td><td><span class="tag tag-target">MY_DI_DK (31)</span></td></tr>
+<tr><td>BPC</td><td><span class="tag tag-dir-i">I</span></td><td>19</td><td><span class="tag tag-success">19</span></td><td><span class="tag tag-source">DKSH (19)</span></td><td><span class="tag tag-target">S4Hana (19)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- APAC Systems Activity Summary -->
+<h2>APAC Systems Activity Summary</h2>
+<div class="section">
+<table>
+<thead><tr><th>System</th><th>Region</th><th>As Source</th><th>As Target</th><th>Total Activity</th></tr></thead>
+<tbody>
+<tr><td>MY_DI_DK</td><td><span class="region-badge">APAC</span></td><td class="sys-count">7,997</td><td class="sys-count">2,804</td><td><strong>10,801</strong></td></tr>
+<tr><td>DKSH</td><td><span class="region-badge">APAC</span></td><td class="sys-count">384</td><td class="sys-count">0</td><td><strong>384</strong></td></tr>
+<tr><td>EPX</td><td><span class="region-badge">APAC</span></td><td class="sys-count">136</td><td class="sys-count">0</td><td><strong>136</strong></td></tr>
+<tr><td>KUEHNENAGELUAE</td><td><span class="region-badge">APAC</span></td><td class="sys-count">81</td><td class="sys-count">0</td><td><strong>81</strong></td></tr>
+<tr><td>SA_PH_SL</td><td><span class="region-badge">APAC</span></td><td class="sys-count">47</td><td class="sys-count">33</td><td><strong>80</strong></td></tr>
+<tr><td>SALEHIYAH</td><td><span class="region-badge">APAC</span></td><td class="sys-count">72</td><td class="sys-count">0</td><td><strong>72</strong></td></tr>
+<tr><td>AE_PH_KN</td><td><span class="region-badge">APAC</span></td><td class="sys-count">16</td><td class="sys-count">52</td><td><strong>68</strong></td></tr>
+<tr><td>EG_PH_EP</td><td><span class="region-badge">APAC</span></td><td class="sys-count">6</td><td class="sys-count">5</td><td><strong>11</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<footer>
+<p>Generated by ELK Log Agent | Wave E APAC Local Interfaces Scope | 5 Mar 2026 to 25 Mar 2026</p>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+Wave E Overall Local Interfaces Scope - 20 Mar 2026
+Environment: Prod
+Regions: EMEA, APAC
+EMEA Systems: GH_PH_IL, SI_PH_KE, DPWorld, DSV, SK_PH_DS, GRIT, XCZ_PH_GR, MYSUPPLY, XDK_DI_MS, CZ_PH_AH, XSI_PH_SE
+APAC Systems: SALEHIYAH, EPX, KUEHNENAGELUAE, DKSH, EG_PH_EP, AE_PH_KN, SA_PH_SL, MY_DI_DK
+Date Range: 20 Mar 2026 00:00:00 UTC - 21 Mar 2026 00:00:00 UTC
+Total Transactions: 506
+Success Rate: 100.0%
+
+Interface,Entity,Direction,Total,Success,Failed,Source Systems,Target Systems,Region
+Inbound Delivery,SHP_IBDLV_SAVE_REPLICA,O,41,41,0,S4Hana(41),"MY_DI_DK(20), CZ_PH_AH(11), AE_PH_KN(9), SA_PH_SL(1)",EMEA/APAC
+Outbound Delivery,SHP_OBDLV_SAVE_REPLICA,O,50,50,0,S4Hana(50),"SK_PH_DS(27), CZ_PH_AH(18), SI_PH_KE(4), MY_DI_DK(1)",EMEA/APAC
+Inbound Delivery Confirmation,SHP_OBDLV_CONFIRM_DECENTRAL,I,73,73,0,"SK_PH_DS(49), CZ_PH_AH(19), SI_PH_KE(5)",S4Hana(73),EMEA/APAC
+Outbound Delivery Confirmation,SHPCON,I,89,89,0,"SK_PH_DS(62), CZ_PH_AH(27)",S4Hana(89),EMEA/APAC
+Sales Orders,ORDERS (I),I,15,15,0,XDK_DI_MS(15),S4Hana(15),EMEA/APAC
+Stock Adjustments/Movements,MBGMCR,I,0,0,0,-,-,EMEA/APAC
+Information on Delivery,STATUS,I,80,80,0,"SK_PH_DS(55), CZ_PH_AH(20), SI_PH_KE(4), SA_PH_SL(1)",S4Hana(80),EMEA/APAC
+Customer Invoice,INVOIC,O,57,57,0,S4Hana(57),XDK_DI_MS(57),EMEA/APAC
+Material Master Outbound,/TNESP/MASTER,O,0,0,0,-,-,EMEA/APAC
+Sales Order Outbound,ORDERS (O),O,0,0,0,-,-,EMEA/APAC
+BPCOUT,BusinessPartnerBulkReplicationOut,O,1,1,0,S4Hana(1),DSV(1),EMEA/APAC
+Delivery Note,OBDDLN,I,63,63,0,"DSV(45), GRIT(18)",S4Hana(63),EMEA/APAC
+Stock Reconciliation,ZREC,I,28,28,0,"DKSH(6), EPX(5), GRIT(4), KUEHNENAGELUAE(4), SALEHIYAH(4), DSV(3), DPWorld(2)",S4Hana(28),EMEA/APAC
+SETCCE_Invoice,INVOIC (SETCCE),O,7,7,0,-,XSI_PH_SE,EMEA/APAC
+
+EMEA Systems Activity Summary
+System,As Source,As Target,Total,Region
+GH_PH_IL,0,0,0,EMEA
+SI_PH_KE,9,4,13,EMEA
+DPWorld,2,0,2,EMEA
+DSV,48,1,49,EMEA
+SK_PH_DS,166,27,193,EMEA
+GRIT,22,0,22,EMEA
+XCZ_PH_GR,0,0,0,EMEA
+MYSUPPLY,0,0,0,EMEA
+XDK_DI_MS,15,57,72,EMEA
+CZ_PH_AH,66,29,95,EMEA
+XSI_PH_SE,0,0,0,EMEA
+
+APAC Systems Activity Summary
+System,As Source,As Target,Total,Region
+SALEHIYAH,4,0,4,APAC
+EPX,5,0,5,APAC
+KUEHNENAGELUAE,4,0,4,APAC
+DKSH,8,0,8,APAC
+EG_PH_EP,0,0,0,APAC
+AE_PH_KN,0,9,9,APAC
+SA_PH_SL,2,1,3,APAC
+MY_DI_DK,0,21,21,APAC

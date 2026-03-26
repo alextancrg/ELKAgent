@@ -1,0 +1,15 @@
+Interface,Entity,Direction,Total,Success,Error,Source Systems,Target Systems
+Inbound Delivery_Prod,SHP_IBDLV_SAVE_REPLICA,O,0,0,0,,
+Outbound Delivery_Prod,SHP_OBDLV_SAVE_REPLICA,O,83,83,0,S4Hana,"SK_PH_DS(47), CZ_PH_AH(25), SI_PH_KE(7), GH_PH_IL(4)"
+Inbound Delivery Confirmation_Prod,SHP_OBDLV_CONFIRM_DECENTRAL,I,89,89,0,"SK_PH_DS(60), CZ_PH_AH(20), SI_PH_KE(7), GH_PH_IL(2)",S4Hana
+Outbound Delivery Confirmation_Prod,SHPCON,I,66,66,0,"SK_PH_DS(59), CZ_PH_AH(7)",S4Hana
+Sales Orders_Prod,ORDERS,I,26,26,0,"XDK_DI_MS(14), XCZ_PH_GR(12)",S4Hana
+Stock Adjustments/Movements_Prod,MBGMCR,I,0,0,0,,
+Information on Delivery_Prod,STATUS,I,83,83,0,"SK_PH_DS(47), CZ_PH_AH(25), SI_PH_KE(7), GH_PH_IL(4)",S4Hana
+Customer Invoice_Prod,INVOIC,O,11,11,0,S4Hana,XDK_DI_MS(11)
+Material Master Outbound_Prod,/TNESP/MASTER,O,0,0,0,,
+Sales Order Outbound_Prod,ORDERS,O,0,0,0,,
+BPCOUT_Prod,BusinessPartnerBulkReplicationOut,O,0,0,0,,
+Delivery Note_Prod,OBDDLN,I,80,80,0,"DSV(60), GRIT(20)",S4Hana
+Stock Reconciliation_Prod,ZREC,I,10,10,0,"GRIT(5), DSV(3), DPWorld(2)",S4Hana
+SETCCE_Invoice_Prod,INVOIC (SETCCE),O,1,1,0,S4Hana,XSI_PH_SE(1)

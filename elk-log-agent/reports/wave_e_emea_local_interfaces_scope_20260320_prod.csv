@@ -1,0 +1,37 @@
+Wave E EMEA Local Interfaces Scope - 20 Mar 2026
+Environment: Prod
+Region: EMEA
+Systems: GH_PH_IL, SI_PH_KE, DPWorld, DSV, SK_PH_DS, GRIT, XCZ_PH_GR, MYSUPPLY, XDK_DI_MS, CZ_PH_AH, XSI_PH_SE
+Date Range: 20 Mar 2026 00:00:00 UTC - 21 Mar 2026 00:00:00 UTC
+Total Transactions: 453
+Success Rate: 100.0%
+
+Interface,Entity,Direction,Total,Success,Failed,Source Systems,Target Systems,Region
+Inbound Delivery,SHP_IBDLV_SAVE_REPLICA,O,11,11,0,S4Hana(11),CZ_PH_AH(11),EMEA
+Outbound Delivery,SHP_OBDLV_SAVE_REPLICA,O,49,49,0,S4Hana(49),"SK_PH_DS(27), CZ_PH_AH(18), SI_PH_KE(4)",EMEA
+Inbound Delivery Confirmation,SHP_OBDLV_CONFIRM_DECENTRAL,I,73,73,0,"SK_PH_DS(49), CZ_PH_AH(19), SI_PH_KE(5)",S4Hana(73),EMEA
+Outbound Delivery Confirmation,SHPCON,I,89,89,0,"SK_PH_DS(62), CZ_PH_AH(27)",S4Hana(89),EMEA
+Sales Orders,ORDERS (I),I,15,15,0,XDK_DI_MS(15),S4Hana(15),EMEA
+Stock Adjustments/Movements,MBGMCR,I,0,0,0,-,-,EMEA
+Information on Delivery,STATUS,I,79,79,0,"SK_PH_DS(55), CZ_PH_AH(20), SI_PH_KE(4)",S4Hana(79),EMEA
+Customer Invoice,INVOIC,O,57,57,0,S4Hana(57),XDK_DI_MS(57),EMEA
+Material Master Outbound,/TNESP/MASTER,O,0,0,0,-,-,EMEA
+Sales Order Outbound,ORDERS (O),O,0,0,0,-,-,EMEA
+BPCOUT,BusinessPartnerBulkReplicationOut,O,1,1,0,S4Hana(1),DSV(1),EMEA
+Delivery Note,OBDDLN,I,63,63,0,"DSV(45), GRIT(18)",S4Hana(63),EMEA
+Stock Reconciliation,ZREC,I,9,9,0,"GRIT(4), DSV(3), DPWorld(2)",S4Hana(9),EMEA
+SETCCE_Invoice,INVOIC (SETCCE),O,7,7,0,-,XSI_PH_SE,EMEA
+
+EMEA Systems Activity Summary
+System,As Source,As Target,Total,Region
+GH_PH_IL,0,0,0,EMEA
+SI_PH_KE,9,4,13,EMEA
+DPWorld,2,0,2,EMEA
+DSV,48,1,49,EMEA
+SK_PH_DS,166,27,193,EMEA
+GRIT,22,0,22,EMEA
+XCZ_PH_GR,0,0,0,EMEA
+MYSUPPLY,0,0,0,EMEA
+XDK_DI_MS,15,57,72,EMEA
+CZ_PH_AH,66,29,95,EMEA
+XSI_PH_SE,0,0,0,EMEA

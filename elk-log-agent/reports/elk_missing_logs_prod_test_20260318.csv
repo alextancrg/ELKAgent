@@ -1,0 +1,7 @@
+Environment,Index,FilterLogType,Failure_Tag,Record_Count,MuleMessage.applicationName,MuleMessage.correlationId,MuleMessage.metadata.universalCorrelationId,targetSystem,businessKeys
+Production,mulesoft-pharma-prod-rtf2-eu-2026.03.18,rtf2-eu,_jsonparsefailure,417511,(unparsed - fields unavailable due to parse failure),(unparsed),(unparsed),(unparsed),(unparsed)
+Production,mulesoft-pharma-prod-rtf2-eu-2026.03.18,rtf2-eu,_grokparsefailure,98516,(unparsed - fields unavailable due to parse failure),(unparsed),(unparsed),(unparsed),(unparsed)
+Production,mulesoft-pharma-prod-rtf2-eu-2026.03.18,rtf2-eu,_groktimeout,61,(unparsed - fields unavailable due to parse failure),(unparsed),(unparsed),(unparsed),(unparsed)
+Production,mulesoft-pharma-prod-flex-eu-2026.03.18,flex-eu,_jsonparsefailure,472260,(unparsed - fields unavailable due to parse failure),(unparsed),(unparsed),(unparsed),(unparsed)
+Production,mulesoft-pharma-prod-rtf2-cn-2026.03.18,rtf2-cn,_jsonparsefailure,44,(unparsed - fields unavailable due to parse failure),(unparsed),(unparsed),(unparsed),(unparsed)
+Test,(no mulesoft-pharma-test* failures found),,,0,,,,,

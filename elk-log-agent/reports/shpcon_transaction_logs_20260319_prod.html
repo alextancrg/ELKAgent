@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHPCON Transaction Logs - 19 Mar 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#1a1a2e;color:#e0e0e0;padding:20px}
+.container{max-width:1600px;margin:0 auto}
+.header{background:linear-gradient(135deg,#16213e,#0f3460);border-radius:12px;padding:30px;margin-bottom:25px;text-align:center;border:1px solid #1a3a6a}
+.header h1{font-size:26px;color:#4fc3f7;margin-bottom:8px}
+.header p{color:#90caf9;font-size:14px}
+.region-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;margin-left:6px}
+.region-emea{background:#1b5e20;color:#a5d6a7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:25px}
+.card{background:#16213e;border-radius:10px;padding:18px;text-align:center;border:1px solid #1a3a6a}
+.card .value{font-size:28px;font-weight:700;color:#4fc3f7}
+.card .label{font-size:12px;color:#90caf9;margin-top:5px}
+.card.success .value{color:#66bb6a}
+.card.failed .value{color:#ef5350}
+.card.rate .value{color:#ffa726}
+.section{background:#16213e;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #1a3a6a}
+.section h2{color:#4fc3f7;margin-bottom:15px;font-size:18px}
+.mermaid-container{background:#0d1b2a;border-radius:10px;padding:30px;margin-bottom:25px;border:1px solid #1a3a6a;text-align:center}
+.mermaid-container h2{color:#4fc3f7;margin-bottom:20px;font-size:18px}
+.mermaid{display:inline-block}
+table{width:100%;border-collapse:collapse;margin-bottom:10px}
+th{background:#0f3460;color:#4fc3f7;padding:10px 8px;text-align:left;font-size:12px;border-bottom:2px solid #1a3a6a;position:sticky;top:0;z-index:1}
+td{padding:8px;border-bottom:1px solid #1a2a4a;font-size:12px}
+tr:hover{background:#1a2a4a}
+.status-success{color:#66bb6a;font-weight:600}
+.mono{font-family:'Courier New',monospace;font-size:11px}
+.batch-header{background:#0a1628;color:#ffa726;font-weight:600}
+.footer{text-align:center;padding:20px;color:#546e7a;font-size:12px}
+.timeline-section{background:#16213e;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #1a3a6a}
+.timeline-section h2{color:#4fc3f7;margin-bottom:15px;font-size:18px}
+.batch-bar{display:flex;align-items:center;margin-bottom:8px;gap:10px}
+.batch-label{width:160px;font-size:12px;color:#90caf9;text-align:right}
+.batch-fill{height:24px;border-radius:4px;background:linear-gradient(90deg,#66bb6a,#388e3c);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;min-width:30px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Outbound Delivery Confirmation (SHPCON) - Transaction Logs <span class="region-badge region-emea">EMEA</span></h1>
+<p>Environment: Prod | Date: 19 Mar 2026 | Source: CZ_PH_AH | Target: S4Hana | Application: pharma-acknowledge-s4h-sys</p>
+</div>
+
+<div class="cards">
+<div class="card"><div class="value">27</div><div class="label">Total Transactions</div></div>
+<div class="card success"><div class="value">27</div><div class="label">Successful</div></div>
+<div class="card failed"><div class="value">0</div><div class="label">Failed</div></div>
+<div class="card rate"><div class="value">100%</div><div class="label">Success Rate</div></div>
+<div class="card"><div class="value">4</div><div class="label">Processing Batches</div></div>
+<div class="card"><div class="value">~6.5 min</div><div class="label">Total Window</div></div>
+</div>
+
+<div class="mermaid-container">
+<h2>SHPCON Architecture Flow - Prod Environment</h2>
+<pre class="mermaid">
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#0f3460', 'primaryTextColor': '#e0e0e0', 'primaryBorderColor': '#4fc3f7', 'lineColor': '#4fc3f7', 'secondaryColor': '#16213e', 'tertiaryColor': '#1a1a2e', 'edgeLabelBackground': '#0f3460'}}}%%
+graph LR
+    subgraph SRC["Source System"]
+        CZ["CZ_PH_AH<br/>(Czech Republic)"]
+    end
+
+    subgraph FILES["File Transfer Layer"]
+        XML["XML Files<br/>LSP_ALG_CZ1_I_IOD_*"]
+    end
+
+    subgraph MULE["MuleSoft Integration Layer - Prod"]
+        direction TB
+        APP["pharma-acknowledge-s4h-sys<br/>v1.0.80"]
+        FLOW["API Route Handler<br/>post:\txnStatus:text\xml"]
+        LOG["JSON Logger<br/>tracePoint: EVENT"]
+    end
+
+    subgraph SOLACE["Message Broker"]
+        SOL["Solace Queue"]
+    end
+
+    subgraph TGT["Target System"]
+        S4H["S4Hana<br/>(SAP)"]
+    end
+
+    subgraph MON["Monitoring"]
+        ELK["ELK Stack<br/>mulesoft-pharma-prod-*"]
+    end
+
+    CZ -->|"SHPCON<br/>Delivery Confirmation<br/>Direction: Inbound"| XML
+    XML -->|"27 XML files<br/>2 batches"| APP
+    APP --> FLOW
+    FLOW -->|"Process &amp; Validate"| LOG
+    LOG -->|"correlationId<br/>universalCorrelationId<br/>businessKeys"| ELK
+    APP -->|"Processed messages<br/>sent to Solace"| SOL
+    SOL -->|"Delivery confirmations"| S4H
+
+    style CZ fill:#1b5e20,stroke:#a5d6a7,color:#e0e0e0
+    style S4H fill:#0d47a1,stroke:#64b5f6,color:#e0e0e0
+    style APP fill:#4a148c,stroke:#ce93d8,color:#e0e0e0
+    style ELK fill:#b71c1c,stroke:#ef9a9a,color:#e0e0e0
+    style SOL fill:#e65100,stroke:#ffcc80,color:#e0e0e0
+    style XML fill:#37474f,stroke:#90a4ae,color:#e0e0e0
+    style FLOW fill:#4a148c,stroke:#ce93d8,color:#e0e0e0
+    style LOG fill:#4a148c,stroke:#ce93d8,color:#e0e0e0
+</pre>
+</div>
+
+<div class="mermaid-container">
+<h2>Transaction Sequence Diagram</h2>
+<pre class="mermaid">
+%%{init: {'theme': 'dark', 'themeVariables': {'actorTextColor': '#e0e0e0', 'actorBkg': '#0f3460', 'actorBorder': '#4fc3f7', 'signalColor': '#e0e0e0', 'labelBoxBkgColor': '#16213e', 'noteBkgColor': '#1b5e20', 'noteTextColor': '#e0e0e0'}}}%%
+sequenceDiagram
+    participant CZ as CZ_PH_AH
+    participant B2B as File Transfer
+    participant MULE as pharma-acknowledge-s4h-sys
+    participant SOL as Solace
+    participant S4H as S4Hana
+    participant ELK as ELK Monitoring
+
+    Note over CZ,S4H: 19 Mar 2026 - SHPCON Flow (27 Transactions)
+
+    rect rgb(27, 94, 32)
+    Note over CZ,MULE: Batch 1: 04:38:30 UTC (7 transactions)
+    CZ->>B2B: LSP_ALG_CZ1_I_IOD_*_053034.xml (x7)
+    B2B->>MULE: XML files ingested
+    MULE->>MULE: Process SHPCON entity
+    MULE->>ELK: Log: flow end, txnStatus=Success
+    MULE->>SOL: Send to Solace queue
+    SOL->>S4H: Delivery confirmations (5OD0000087-5OD0000115)
+    end
+
+    rect rgb(13, 71, 161)
+    Note over CZ,MULE: Batch 2: 04:39:28 UTC (7 transactions)
+    CZ->>B2B: LSP_ALG_CZ1_I_IOD_*_053034.xml (x7)
+    B2B->>MULE: XML files ingested
+    MULE->>MULE: Process SHPCON entity
+    MULE->>ELK: Log: flow end, txnStatus=Success
+    MULE->>SOL: Send to Solace queue
+    SOL->>S4H: Delivery confirmations (5OD0000086-5OD0000121)
+    end
+
+    rect rgb(74, 20, 140)
+    Note over CZ,MULE: Batch 3: 04:44:05 UTC (6 transactions)
+    CZ->>B2B: LSP_ALG_CZ1_I_IOD_*_053540.xml (x6)
+    B2B->>MULE: XML files ingested
+    MULE->>MULE: Process SHPCON entity
+    MULE->>ELK: Log: flow end, txnStatus=Success
+    MULE->>SOL: Send to Solace queue
+    SOL->>S4H: Delivery confirmations (5OD0000113-5OD0000123)
+    end
+
+    rect rgb(230, 81, 0)
+    Note over CZ,MULE: Batch 4: 04:44:58 UTC (7 transactions)
+    CZ->>B2B: LSP_ALG_CZ1_I_IOD_*_053540.xml (x7)
+    B2B->>MULE: XML files ingested
+    MULE->>MULE: Process SHPCON entity
+    MULE->>ELK: Log: flow end, txnStatus=Success
+    MULE->>SOL: Send to Solace queue
+    SOL->>S4H: Delivery confirmations (5OD0000085-5OD0000124)
+    end
+
+    Note over CZ,S4H: All 27 transactions completed successfully
+</pre>
+</div>
+
+<div class="timeline-section">
+<h2>Processing Batch Timeline</h2>
+<div class="batch-bar"><div class="batch-label">Batch 1 (04:38:30)</div><div class="batch-fill" style="width:26%">7 txns</div></div>
+<div class="batch-bar"><div class="batch-label">Batch 2 (04:39:28)</div><div class="batch-fill" style="width:26%">7 txns</div></div>
+<div class="batch-bar"><div class="batch-label">Batch 3 (04:44:05)</div><div class="batch-fill" style="width:22%">6 txns</div></div>
+<div class="batch-bar"><div class="batch-label">Batch 4 (04:44:58)</div><div class="batch-fill" style="width:26%">7 txns</div></div>
+</div>
+
+<div class="section">
+<h2>Transaction Logs (27 Records)</h2>
+<div style="overflow-x:auto">
+<table>
+<tr>
+<th>#</th>
+<th>Timestamp (UTC)</th>
+<th>Message</th>
+<th>Application Name</th>
+<th>Universal Correlation ID</th>
+<th>Correlation ID</th>
+<th>Target System</th>
+<th>Status</th>
+<th>Delivery</th>
+<th>File Name</th>
+</tr>
+<tr class="batch-header"><td colspan="10">Batch 1 — 04:38:30 UTC (7 transactions)</td></tr>
+<tr><td>1</td><td class="mono">04:38:30.009</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581725505375455_5OD0000115</td><td class="mono">2581725505375455</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000115</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155026582_20260319_053034.xml</td></tr>
+<tr><td>2</td><td class="mono">04:38:30.010</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581726205375482_5OD0000117</td><td class="mono">2581726205375482</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000117</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155018121_20260319_053034.xml</td></tr>
+<tr><td>3</td><td class="mono">04:38:30.010</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581725905375492_5OD0000087</td><td class="mono">2581725905375492</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000087</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155023504_20260319_053034.xml</td></tr>
+<tr><td>4</td><td class="mono">04:38:30.010</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581726005375472_5OD0000108</td><td class="mono">2581726005375472</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000108</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155027910_20260319_053034.xml</td></tr>
+<tr><td>5</td><td class="mono">04:38:30.010</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581726905375512_5OD0000104</td><td class="mono">2581726905375512</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000104</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155029704_20260319_053034.xml</td></tr>
+<tr><td>6</td><td class="mono">04:38:30.011</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581727405375525_5OD0000095</td><td class="mono">2581727405375525</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000095</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155016786_20260319_053034.xml</td></tr>
+<tr><td>7</td><td class="mono">04:38:30.011</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581727105375520_5OD0000111</td><td class="mono">2581727105375520</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000111</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155024849_20260319_053034.xml</td></tr>
+<tr class="batch-header"><td colspan="10">Batch 2 — 04:39:28 UTC (7 transactions)</td></tr>
+<tr><td>8</td><td class="mono">04:39:28.823</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581725605375459_5OD0000109</td><td class="mono">2581725605375459</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000109</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155030372_20260319_053034.xml</td></tr>
+<tr><td>9</td><td class="mono">04:39:28.823</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581725805375466_5OD0000102</td><td class="mono">2581725805375466</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000102</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155028998_20260319_053034.xml</td></tr>
+<tr><td>10</td><td class="mono">04:39:28.824</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581726705375510_5OD0000110</td><td class="mono">2581726705375510</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000110</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155021933_20260319_053034.xml</td></tr>
+<tr><td>11</td><td class="mono">04:39:28.824</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581726305375486_5OD0000107</td><td class="mono">2581726305375486</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000107</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155019244_20260319_053034.xml</td></tr>
+<tr><td>12</td><td class="mono">04:39:28.824</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581726105375479_5OD0000086</td><td class="mono">2581726105375479</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000086</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155025722_20260319_053034.xml</td></tr>
+<tr><td>13</td><td class="mono">04:39:28.824</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581726605375503_5OD0000103</td><td class="mono">2581726605375503</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000103</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155020444_20260319_053034.xml</td></tr>
+<tr><td>14</td><td class="mono">04:39:28.825</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581727205375522_5OD0000121</td><td class="mono">2581727205375522</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000121</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155022759_20260319_053034.xml</td></tr>
+<tr class="batch-header"><td colspan="10">Batch 3 — 04:44:05 UTC (6 transactions)</td></tr>
+<tr><td>15</td><td class="mono">04:44:05.048</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581735405435469_5OD0000123</td><td class="mono">2581735405435469</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000123</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155039672_20260319_053540.xml</td></tr>
+<tr><td>16</td><td class="mono">04:44:05.049</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581735905435486_5OD0000113</td><td class="mono">2581735905435486</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000113</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155040408_20260319_053540.xml</td></tr>
+<tr><td>17</td><td class="mono">04:44:05.049</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581735705435480_5OD0000119</td><td class="mono">2581735705435480</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000119</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155038273_20260319_053540.xml</td></tr>
+<tr><td>18</td><td class="mono">04:44:05.049</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581736705435521_5OD0000120</td><td class="mono">2581736705435521</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000120</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155034951_20260319_053540.xml</td></tr>
+<tr><td>19</td><td class="mono">04:44:05.050</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581737405435536_5OD0000114</td><td class="mono">2581737405435536</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000114</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155033597_20260319_053540.xml</td></tr>
+<tr><td>20</td><td class="mono">04:44:05.050</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581736905435523_5OD0000122</td><td class="mono">2581736905435523</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000122</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155038981_20260319_053540.xml</td></tr>
+<tr class="batch-header"><td colspan="10">Batch 4 — 04:44:58 UTC (7 transactions)</td></tr>
+<tr><td>21</td><td class="mono">04:44:58.853</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581735305435465_5OD0000124</td><td class="mono">2581735305435465</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000124</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155041088_20260319_053540.xml</td></tr>
+<tr><td>22</td><td class="mono">04:44:58.853</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581735805435483_5OD0000085</td><td class="mono">2581735805435483</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000085</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155032060_20260319_053540.xml</td></tr>
+<tr><td>23</td><td class="mono">04:44:58.853</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581735505435473_5OD0000112</td><td class="mono">2581735505435473</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000112</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155032915_20260319_053540.xml</td></tr>
+<tr><td>24</td><td class="mono">04:44:58.854</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581736005435499_5OD0000106</td><td class="mono">2581736005435499</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000106</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155034277_20260319_053540.xml</td></tr>
+<tr><td>25</td><td class="mono">04:44:58.854</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581737105435529_5OD0000118</td><td class="mono">2581737105435529</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000118</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155037353_20260319_053540.xml</td></tr>
+<tr><td>26</td><td class="mono">04:44:58.855</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581737805435549_5OD0000105</td><td class="mono">2581737805435549</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000105</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155031042_20260319_053540.xml</td></tr>
+<tr><td>27</td><td class="mono">04:44:58.855</td><td>flow end</td><td>pharma-acknowledge-s4h-sys</td><td class="mono">__2581737305435534_5OD0000116</td><td class="mono">2581737305435534</td><td>S4Hana</td><td class="status-success">Success</td><td>5OD0000116</td><td class="mono">LSP_ALG_CZ1_I_IOD_2603190155036151_20260319_053540.xml</td></tr>
+</table>
+</div>
+</div>
+
+<div class="section">
+<h2>Key Observations</h2>
+<table>
+<tr><th>Attribute</th><th>Value</th></tr>
+<tr><td>Entity</td><td>SHPCON (Outbound Delivery Confirmation)</td></tr>
+<tr><td>Direction</td><td>Inbound (I) - from CZ_PH_AH to S4Hana</td></tr>
+<tr><td>Application</td><td>pharma-acknowledge-s4h-sys v1.0.80</td></tr>
+<tr><td>Category</td><td>P2DP (Pharma to Distribution Partner)</td></tr>
+<tr><td>Processing Window</td><td>04:38:30 - 04:44:58 UTC (~6.5 minutes)</td></tr>
+<tr><td>Batch Pattern</td><td>4 batches: 7 + 7 + 6 + 7 transactions</td></tr>
+<tr><td>File Naming</td><td>LSP_ALG_CZ1_I_IOD_{sequence}_{date}_{time}.xml</td></tr>
+<tr><td>File Batches</td><td>2 file groups: _053034.xml (14 files) and _053540.xml (13 files)</td></tr>
+<tr><td>Delivery Numbers</td><td>5OD0000085 - 5OD0000124 (27 unique deliveries)</td></tr>
+<tr><td>All Messages</td><td>"flow end" — indicating successful completion</td></tr>
+<tr><td>Failure Count</td><td>0</td></tr>
+</table>
+</div>
+
+<div class="footer">
+<p>Generated by ELK Log Agent | SHPCON Transaction Logs | 19 Mar 2026 | Prod Environment</p>
+</div>
+</div>
+<script>mermaid.initialize({startOnLoad:true,theme:'dark'});</script>
+</body>
+</html>

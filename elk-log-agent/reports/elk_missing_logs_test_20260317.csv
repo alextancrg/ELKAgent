@@ -1,0 +1,1 @@
+Timestamp,Index,Environment,FilterLogType,Failure_Tag,MuleMessage.message,MuleMessage.applicationName,MuleMessage.metadata.universalCorrelationId,targetSystem,businessKeys

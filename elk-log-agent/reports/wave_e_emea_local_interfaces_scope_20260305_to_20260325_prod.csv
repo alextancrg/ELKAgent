@@ -1,0 +1,23 @@
+Interface,Entity,Direction,Total,Success,Failed,Source Systems,Target Systems
+Inbound Delivery,SHP_IBDLV_SAVE_REPLICA,O,55,55,0,"S4Hana","CZ_PH_AH(21) SI_PH_KE(17) SK_PH_DS(17)"
+Outbound Delivery,SHP_OBDLV_SAVE_REPLICA,O,770,770,0,"S4Hana","SK_PH_DS(441) CZ_PH_AH(260) SI_PH_KE(53) GH_PH_IL(16)"
+Inbound Delivery Confirmation,SHP_OBDLV_CONFIRM_DECENTRAL,I,711,711,0,"SK_PH_DS(405) CZ_PH_AH(247) SI_PH_KE(42) GH_PH_IL(17)","S4Hana"
+Outbound Delivery Confirmation,SHPCON,I,520,520,0,"SK_PH_DS(312) CZ_PH_AH(208)","S4Hana"
+Sales Orders,ORDERS,I,334,334,0,"XDK_DI_MS(304) XCZ_PH_GR(30)","S4Hana"
+Stock Adjustments/Movements,MBGMCR,I,3,3,0,"SK_PH_DS(3)","S4Hana"
+Information on Delivery,STATUS,I,808,808,0,"SK_PH_DS(439) CZ_PH_AH(281) SI_PH_KE(72) GH_PH_IL(16)","S4Hana"
+Customer Invoice,INVOIC,O,1285,1285,0,"S4Hana","XDK_DI_MS(1285)"
+BPCOUT,BusinessPartnerBulkReplicationOut,O,282,282,0,"S4Hana","DSV(282)"
+Delivery Note,OBDDLN,I,632,632,0,"DSV(389) GRIT(243)","S4Hana"
+Stock Reconciliation,ZREC,I,151,151,0,"GRIT(75) DSV(39) DPWorld(37)","S4Hana"
+SETCCE_Invoice,INVOIC (SETCCE),O,52,52,0,"S4Hana","XSI_PH_SE(52)"
+--- Idle Interfaces (Removed) ---,,,,,,
+Material Master Outbound,/TNESP/MASTER,O,0,0,0,,
+Sales Order Outbound,ORDERS,O,0,0,0,,
+--- Additional Entities Detected ---,,,,,,
+SHP_IBDLV_CONFIRM_DECENTRAL,SHP_IBDLV_CONFIRM_DECENTRAL,I,41,41,0,"SK_PH_DS(17) SI_PH_KE(14) CZ_PH_AH(10)","S4Hana"
+--- System Legend ---,,,,,,
+"DPWorld / GH_PH_IL = Ghana affiliate",,,,,,
+"Kemofar / SI_PH_KE = Slovenia affiliate",,,,,,
+"DSV Solutions / SK_PH_DS / DSV = Slovakia affiliate",,,,,,
+"MYSupply / XDK_DI_MS = Denmark affiliate",,,,,,

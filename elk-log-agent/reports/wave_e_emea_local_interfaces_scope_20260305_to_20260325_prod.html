@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wave E EMEA Local Interfaces Scope - 5 Mar 2026 to 25 Mar 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f1923;color:#e0e0e0;padding:20px}
+.container{max-width:1400px;margin:0 auto}
+h1{color:#00d4ff;margin-bottom:5px;font-size:1.6em}
+h2{color:#00d4ff;margin:25px 0 15px;font-size:1.2em;border-bottom:1px solid #2a3744;padding-bottom:8px}
+h3{color:#ffa726;margin:20px 0 10px;font-size:1.05em}
+.subtitle{color:#8899aa;margin-bottom:25px;font-size:0.95em}
+.summary-cards{display:flex;gap:15px;margin-bottom:25px;flex-wrap:wrap}
+.card{background:#1a2733;border-radius:8px;padding:15px 20px;flex:1;min-width:150px;border-left:3px solid #00d4ff}
+.card-label{color:#8899aa;font-size:0.8em;text-transform:uppercase}
+.card-value{color:#fff;font-size:1.5em;font-weight:700;margin-top:4px}
+.card.success{border-left-color:#00e676}
+.card.warning{border-left-color:#ffa726}
+.card.info{border-left-color:#29b6f6}
+.card.idle{border-left-color:#ef5350}
+.chart-section{background:#1a2733;border-radius:8px;padding:20px;margin-bottom:25px;overflow:visible}
+.chart-area{position:relative;width:100%;height:320px;margin-top:10px}
+.chart-bars{display:flex;align-items:flex-end;justify-content:space-around;height:250px;padding:0 5px;gap:4px}
+.chart-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+.chart-val{font-size:0.7em;color:#fff;font-weight:700;margin-bottom:4px;white-space:nowrap}
+.chart-bar{width:80%;max-width:55px;border-radius:4px 4px 0 0;background:linear-gradient(to top,#00838f,#00d4ff);min-height:2px;transition:all 0.3s}
+.chart-bar:hover{opacity:0.85;transform:scaleY(1.02);transform-origin:bottom}
+.chart-lbl{font-size:0.62em;color:#8899aa;margin-top:8px;text-align:center;line-height:1.2;word-break:break-word;max-width:75px}
+table{width:100%;border-collapse:collapse;margin-bottom:15px;font-size:0.85em}
+th{background:#0d1b27;color:#00d4ff;padding:10px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #1e2d3d}
+tr:hover{background:#1e2d3d}
+.section{background:#1a2733;border-radius:8px;padding:20px;margin-bottom:15px}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75em;margin:1px}
+.tag-source{background:#1b5e20;color:#69f0ae}
+.tag-target{background:#0d47a1;color:#64b5f6}
+.tag-success{background:#1b5e20;color:#69f0ae}
+.tag-dir-i{background:#4a148c;color:#ce93d8}
+.tag-dir-o{background:#e65100;color:#ffcc80}
+.region-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:0.7em;background:#1565c0;color:#90caf9;margin-left:4px}
+.sys-count{color:#aaa;font-size:0.85em}
+.additional{border-left:3px solid #ff9800;background:#1a2733;border-radius:8px;padding:20px;margin-bottom:15px}
+.idle-note{background:#1a2733;border-left:3px solid #ef5350;border-radius:8px;padding:15px 20px;margin-bottom:15px;color:#ef9a9a;font-size:0.9em}
+.legend{background:#1a2733;border-radius:8px;padding:20px;margin-bottom:15px;border-left:3px solid #7c4dff}
+.legend-title{color:#b388ff;font-size:1em;font-weight:600;margin-bottom:12px}
+.legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.legend-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#0d1b27;border-radius:6px}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-codes{color:#80cbc4;font-family:monospace;font-size:0.85em}
+.legend-affiliate{color:#ffa726;font-weight:500;font-size:0.9em}
+footer{text-align:center;color:#556;margin-top:30px;padding:15px;font-size:0.8em;border-top:1px solid #1e2d3d}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Wave E EMEA Local Interfaces Scope</h1>
+<p class="subtitle">5 Mar 2026 to 25 Mar 2026 | Prod Environment | 11 EMEA Systems</p>
+
+<div class="summary-cards">
+<div class="card"><div class="card-label">Total Transactions</div><div class="card-value">5,591</div></div>
+<div class="card success"><div class="card-label">Success Rate</div><div class="card-value">100%</div></div>
+<div class="card warning"><div class="card-label">Active Interfaces</div><div class="card-value">12 / 14</div></div>
+<div class="card idle"><div class="card-label">Idle (Removed)</div><div class="card-value">2</div></div>
+<div class="card info"><div class="card-label">EMEA Systems</div><div class="card-value">11</div></div>
+</div>
+
+<div class="chart-section">
+<h2 style="margin-top:0;border:none;padding:0">Transaction Volume by Interface</h2>
+<div class="chart-area">
+<div class="chart-bars">
+<div class="chart-col"><div class="chart-val">55</div><div class="chart-bar" style="height:11px"></div><div class="chart-lbl">Inbound Dlv</div></div>
+<div class="chart-col"><div class="chart-val">770</div><div class="chart-bar" style="height:150px"></div><div class="chart-lbl">Outbound Dlv</div></div>
+<div class="chart-col"><div class="chart-val">711</div><div class="chart-bar" style="height:138px"></div><div class="chart-lbl">IB Dlv Conf</div></div>
+<div class="chart-col"><div class="chart-val">520</div><div class="chart-bar" style="height:101px"></div><div class="chart-lbl">OB Dlv Conf</div></div>
+<div class="chart-col"><div class="chart-val">334</div><div class="chart-bar" style="height:65px"></div><div class="chart-lbl">Sales Orders</div></div>
+<div class="chart-col"><div class="chart-val">3</div><div class="chart-bar" style="height:2px"></div><div class="chart-lbl">Stock Adj</div></div>
+<div class="chart-col"><div class="chart-val">808</div><div class="chart-bar" style="height:157px"></div><div class="chart-lbl">Info on Dlv</div></div>
+<div class="chart-col"><div class="chart-val">1,285</div><div class="chart-bar" style="height:250px"></div><div class="chart-lbl">Cust Invoice</div></div>
+<div class="chart-col"><div class="chart-val">282</div><div class="chart-bar" style="height:55px"></div><div class="chart-lbl">BPCOUT</div></div>
+<div class="chart-col"><div class="chart-val">632</div><div class="chart-bar" style="height:123px"></div><div class="chart-lbl">Dlv Note</div></div>
+<div class="chart-col"><div class="chart-val">151</div><div class="chart-bar" style="height:29px"></div><div class="chart-lbl">Stock Recon</div></div>
+<div class="chart-col"><div class="chart-val">52</div><div class="chart-bar" style="height:10px"></div><div class="chart-lbl">SETCCE Inv</div></div>
+</div>
+</div>
+</div>
+
+<div class="idle-note">Idle interfaces removed from report: <strong>Material Master Outbound</strong> (/TNESP/MASTER) and <strong>Sales Order Outbound</strong> (ORDERS O) &mdash; 0 transactions in this period.</div>
+
+<h2>Summary Table</h2>
+<div class="section">
+<table>
+<thead><tr><th>#</th><th>Interface</th><th>Entity</th><th>Dir</th><th>Total</th><th>Success</th><th>Failed</th><th>Source Systems</th><th>Target Systems</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Inbound Delivery</td><td>SHP_IBDLV_SAVE_REPLICA</td><td><span class="tag tag-dir-o">O</span></td><td>55</td><td><span class="tag tag-success">55</span></td><td>0</td><td>S4Hana</td><td>CZ_PH_AH(21) SI_PH_KE(17) SK_PH_DS(17)</td></tr>
+<tr><td>2</td><td>Outbound Delivery</td><td>SHP_OBDLV_SAVE_REPLICA</td><td><span class="tag tag-dir-o">O</span></td><td>770</td><td><span class="tag tag-success">770</span></td><td>0</td><td>S4Hana</td><td>SK_PH_DS(441) CZ_PH_AH(260) SI_PH_KE(53) GH_PH_IL(16)</td></tr>
+<tr><td>3</td><td>Inbound Delivery Confirmation</td><td>SHP_OBDLV_CONFIRM_DECENTRAL</td><td><span class="tag tag-dir-i">I</span></td><td>711</td><td><span class="tag tag-success">711</span></td><td>0</td><td>SK_PH_DS(405) CZ_PH_AH(247) SI_PH_KE(42) GH_PH_IL(17)</td><td>S4Hana</td></tr>
+<tr><td>4</td><td>Outbound Delivery Confirmation</td><td>SHPCON</td><td><span class="tag tag-dir-i">I</span></td><td>520</td><td><span class="tag tag-success">520</span></td><td>0</td><td>SK_PH_DS(312) CZ_PH_AH(208)</td><td>S4Hana</td></tr>
+<tr><td>5</td><td>Sales Orders</td><td>ORDERS</td><td><span class="tag tag-dir-i">I</span></td><td>334</td><td><span class="tag tag-success">334</span></td><td>0</td><td>XDK_DI_MS(304) XCZ_PH_GR(30)</td><td>S4Hana</td></tr>
+<tr><td>6</td><td>Stock Adjustments/Movements</td><td>MBGMCR</td><td><span class="tag tag-dir-i">I</span></td><td>3</td><td><span class="tag tag-success">3</span></td><td>0</td><td>SK_PH_DS(3)</td><td>S4Hana</td></tr>
+<tr><td>7</td><td>Information on Delivery</td><td>STATUS</td><td><span class="tag tag-dir-i">I</span></td><td>808</td><td><span class="tag tag-success">808</span></td><td>0</td><td>SK_PH_DS(439) CZ_PH_AH(281) SI_PH_KE(72) GH_PH_IL(16)</td><td>S4Hana</td></tr>
+<tr><td>8</td><td>Customer Invoice</td><td>INVOIC</td><td><span class="tag tag-dir-o">O</span></td><td>1,285</td><td><span class="tag tag-success">1,285</span></td><td>0</td><td>S4Hana</td><td>XDK_DI_MS(1285)</td></tr>
+<tr><td>9</td><td>BPCOUT</td><td>BusinessPartnerBulkReplicationOut</td><td><span class="tag tag-dir-o">O</span></td><td>282</td><td><span class="tag tag-success">282</span></td><td>0</td><td>S4Hana</td><td>DSV(282)</td></tr>
+<tr><td>10</td><td>Delivery Note</td><td>OBDDLN</td><td><span class="tag tag-dir-i">I</span></td><td>632</td><td><span class="tag tag-success">632</span></td><td>0</td><td>DSV(389) GRIT(243)</td><td>S4Hana</td></tr>
+<tr><td>11</td><td>Stock Reconciliation</td><td>ZREC</td><td><span class="tag tag-dir-i">I</span></td><td>151</td><td><span class="tag tag-success">151</span></td><td>0</td><td>GRIT(75) DSV(39) DPWorld(37)</td><td>S4Hana</td></tr>
+<tr><td>12</td><td>SETCCE_Invoice</td><td>INVOIC (SETCCE)</td><td><span class="tag tag-dir-o">O</span></td><td>52</td><td><span class="tag tag-success">52</span></td><td>0</td><td>S4Hana</td><td>XSI_PH_SE(52)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Interface Details</h2>
+
+<!-- Interface 1 -->
+<h3>1. Inbound Delivery &mdash; SHP_IBDLV_SAVE_REPLICA <span class="tag tag-dir-o">O</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>55</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">55 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">S4Hana (55)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">CZ_PH_AH (21)</span> <span class="tag tag-target">SI_PH_KE (17)</span> <span class="tag tag-target">SK_PH_DS (17)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 2 -->
+<h3>2. Outbound Delivery &mdash; SHP_OBDLV_SAVE_REPLICA <span class="tag tag-dir-o">O</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>770</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">770 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">S4Hana (770)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">SK_PH_DS (441)</span> <span class="tag tag-target">CZ_PH_AH (260)</span> <span class="tag tag-target">SI_PH_KE (53)</span> <span class="tag tag-target">GH_PH_IL (16)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 3 -->
+<h3>3. Inbound Delivery Confirmation &mdash; SHP_OBDLV_CONFIRM_DECENTRAL <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>711</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">711 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">SK_PH_DS (405)</span> <span class="tag tag-source">CZ_PH_AH (247)</span> <span class="tag tag-source">SI_PH_KE (42)</span> <span class="tag tag-source">GH_PH_IL (17)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (711)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 4 -->
+<h3>4. Outbound Delivery Confirmation &mdash; SHPCON <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>520</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">520 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">SK_PH_DS (312)</span> <span class="tag tag-source">CZ_PH_AH (208)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (520)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 5 -->
+<h3>5. Sales Orders &mdash; ORDERS <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>334</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">334 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">XDK_DI_MS (304)</span> <span class="tag tag-source">XCZ_PH_GR (30)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (334)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 6 -->
+<h3>6. Stock Adjustments/Movements &mdash; MBGMCR <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>3</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">3 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">SK_PH_DS (3)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (3)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 7 -->
+<h3>7. Information on Delivery &mdash; STATUS <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>808</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">808 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">SK_PH_DS (439)</span> <span class="tag tag-source">CZ_PH_AH (281)</span> <span class="tag tag-source">SI_PH_KE (72)</span> <span class="tag tag-source">GH_PH_IL (16)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (808)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 8 -->
+<h3>8. Customer Invoice &mdash; INVOIC <span class="tag tag-dir-o">O</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>1,285</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">1,285 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">S4Hana (1,285)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">XDK_DI_MS (1,285)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 9 -->
+<h3>9. BPCOUT &mdash; BusinessPartnerBulkReplicationOut <span class="tag tag-dir-o">O</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>282</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">282 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">S4Hana (282)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">DSV (282)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 10 -->
+<h3>10. Delivery Note &mdash; OBDDLN <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>632</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">632 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">DSV (389)</span> <span class="tag tag-source">GRIT (243)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (632)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 11 -->
+<h3>11. Stock Reconciliation &mdash; ZREC <span class="tag tag-dir-i">I</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>151</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">151 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">GRIT (75)</span> <span class="tag tag-source">DSV (39)</span> <span class="tag tag-source">DPWorld (37)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">S4Hana (151)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Interface 12 -->
+<h3>12. SETCCE_Invoice &mdash; INVOIC (SETCCE) <span class="tag tag-dir-o">O</span></h3>
+<div class="section">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Total Transactions</td><td>52</td></tr>
+<tr><td>Success</td><td><span class="tag tag-success">52 (100%)</span></td></tr>
+<tr><td>Failed</td><td>0</td></tr>
+<tr><td>Source Systems</td><td><span class="tag tag-source">S4Hana (52)</span></td></tr>
+<tr><td>Target Systems</td><td><span class="tag tag-target">XSI_PH_SE (52)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Additional Entities Detected -->
+<h2>Additional Entities Detected</h2>
+<div class="additional">
+<p style="color:#ffa726;margin-bottom:12px">The following entity was found in EMEA system transactions but is not part of the 14 standard interfaces:</p>
+<table>
+<thead><tr><th>Entity</th><th>Direction</th><th>Total</th><th>Success</th><th>Source Systems</th><th>Target Systems</th></tr></thead>
+<tbody>
+<tr><td>SHP_IBDLV_CONFIRM_DECENTRAL</td><td><span class="tag tag-dir-i">I</span></td><td>41</td><td><span class="tag tag-success">41</span></td><td><span class="tag tag-source">SK_PH_DS (17)</span> <span class="tag tag-source">SI_PH_KE (14)</span> <span class="tag tag-source">CZ_PH_AH (10)</span></td><td><span class="tag tag-target">S4Hana (41)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- EMEA Systems Activity Summary -->
+<h2>EMEA Systems Activity Summary</h2>
+<div class="section">
+<table>
+<thead><tr><th>System</th><th>Region</th><th>As Source</th><th>As Target</th><th>Total Activity</th></tr></thead>
+<tbody>
+<tr><td>SK_PH_DS</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">1,176</td><td class="sys-count">458</td><td><strong>1,634</strong></td></tr>
+<tr><td>XDK_DI_MS</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">304</td><td class="sys-count">1,285</td><td><strong>1,589</strong></td></tr>
+<tr><td>CZ_PH_AH</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">746</td><td class="sys-count">281</td><td><strong>1,027</strong></td></tr>
+<tr><td>DSV</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">428</td><td class="sys-count">282</td><td><strong>710</strong></td></tr>
+<tr><td>GRIT</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">318</td><td class="sys-count">0</td><td><strong>318</strong></td></tr>
+<tr><td>SI_PH_KE</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">128</td><td class="sys-count">70</td><td><strong>198</strong></td></tr>
+<tr><td>XSI_PH_SE</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">0</td><td class="sys-count">52</td><td><strong>52</strong></td></tr>
+<tr><td>GH_PH_IL</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">33</td><td class="sys-count">16</td><td><strong>49</strong></td></tr>
+<tr><td>DPWorld</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">37</td><td class="sys-count">0</td><td><strong>37</strong></td></tr>
+<tr><td>XCZ_PH_GR</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">30</td><td class="sys-count">0</td><td><strong>30</strong></td></tr>
+<tr><td>MYSUPPLY</td><td><span class="region-badge">EMEA</span></td><td class="sys-count">0</td><td class="sys-count">0</td><td><strong>0</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- System-to-Affiliate Legend -->
+<h2>System-to-Affiliate Legend</h2>
+<div class="legend">
+<div class="legend-grid">
+<div class="legend-item">
+<div class="legend-dot" style="background:#ef5350"></div>
+<div><span class="legend-affiliate">Ghana Affiliate</span><br><span class="legend-codes">DPWorld / GH_PH_IL</span></div>
+</div>
+<div class="legend-item">
+<div class="legend-dot" style="background:#42a5f5"></div>
+<div><span class="legend-affiliate">Slovenia Affiliate</span><br><span class="legend-codes">Kemofar / SI_PH_KE</span></div>
+</div>
+<div class="legend-item">
+<div class="legend-dot" style="background:#66bb6a"></div>
+<div><span class="legend-affiliate">Slovakia Affiliate</span><br><span class="legend-codes">DSV Solutions / SK_PH_DS / DSV</span></div>
+</div>
+<div class="legend-item">
+<div class="legend-dot" style="background:#ffa726"></div>
+<div><span class="legend-affiliate">Denmark Affiliate</span><br><span class="legend-codes">MYSupply / XDK_DI_MS</span></div>
+</div>
+</div>
+</div>
+
+<footer>
+<p>Generated by ELK Log Agent | Wave E EMEA Local Interfaces Scope | 5 Mar 2026 to 25 Mar 2026</p>
+</footer>
+</div>
+</body>
+</html>

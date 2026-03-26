@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delivery Search - 5OD0000115</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f1923;color:#e0e0e0;padding:20px}
+.container{max-width:1400px;margin:0 auto}
+h1{color:#00d4ff;margin-bottom:5px;font-size:1.6em}
+.subtitle{color:#8899aa;margin-bottom:25px;font-size:0.95em}
+.summary-cards{display:flex;gap:15px;margin-bottom:25px;flex-wrap:wrap}
+.card{background:#1a2733;border-radius:8px;padding:15px 20px;flex:1;min-width:180px;border-left:3px solid #00d4ff}
+.card-label{color:#8899aa;font-size:0.8em;text-transform:uppercase}
+.card-value{color:#fff;font-size:1.5em;font-weight:700;margin-top:4px}
+.card.success{border-left-color:#00e676}
+.card.info{border-left-color:#ffa726}
+.flow-section{background:#1a2733;border-radius:8px;padding:20px;margin-bottom:20px}
+.flow-title{color:#00d4ff;font-size:1.1em;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #2a3744}
+.flow-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:0.75em;margin-left:10px;font-weight:600}
+.badge-out{background:#1b5e20;color:#69f0ae}
+.badge-in{background:#0d47a1;color:#64b5f6}
+table{width:100%;border-collapse:collapse;font-size:0.85em}
+th{background:#0d1b27;color:#00d4ff;padding:10px 12px;text-align:left;position:sticky;top:0;font-weight:600}
+td{padding:9px 12px;border-bottom:1px solid #1e2d3d;vertical-align:top;word-break:break-word}
+tr:hover{background:#1e2d3d}
+.ts{color:#8899aa;white-space:nowrap;font-size:0.9em}
+.app{color:#ffa726;font-weight:500}
+.msg{color:#e0e0e0;max-width:400px}
+.corr{color:#ce93d8;font-family:monospace;font-size:0.85em}
+.sys{font-weight:600}
+.sys-source{color:#64b5f6}
+.sys-target{color:#ef5350}
+.bk{color:#aaa;font-size:0.82em;max-width:350px}
+.status-success{color:#00e676;font-weight:600}
+.entity-tag{display:inline-block;background:#263238;padding:2px 8px;border-radius:4px;font-size:0.8em;color:#80cbc4}
+.index-tag{display:inline-block;background:#1a237e;padding:2px 8px;border-radius:4px;font-size:0.75em;color:#9fa8da}
+.no-data{color:#666;font-style:italic}
+footer{text-align:center;color:#556;margin-top:30px;padding:15px;font-size:0.8em;border-top:1px solid #1e2d3d}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Delivery Transaction Search - 5OD0000115</h1>
+<p class="subtitle">Indices: mulesoft-pharma-stage-* | mulesoft-pharma-test-* &mdash; NonProd Environment</p>
+
+<div class="summary-cards">
+<div class="card"><div class="card-label">Total Records</div><div class="card-value">13</div></div>
+<div class="card success"><div class="card-label">Status</div><div class="card-value">Success</div></div>
+<div class="card info"><div class="card-label">Index</div><div class="card-value">Stage (13)</div></div>
+<div class="card"><div class="card-label">Test Index</div><div class="card-value">0</div></div>
+<div class="card info"><div class="card-label">Target System</div><div class="card-value">CZ_PH_AH</div></div>
+</div>
+
+<!-- Flow 1: Outbound Delivery -->
+<div class="flow-section">
+<div class="flow-title">Flow 1: Outbound Delivery &mdash; S4Hana &rarr; CZ_PH_AH <span class="flow-badge badge-out">OUTBOUND</span> <span class="entity-tag">SHP_OBDLV_SAVE_REPLICA</span></div>
+<table>
+<thead>
+<tr><th>#</th><th>Timestamp</th><th>Message</th><th>Application Name</th><th>Universal Correlation ID</th><th>Source &rarr; Target</th><th>Business Keys</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td class="ts">2026-01-14T15:22:39.058Z</td>
+<td class="msg">flow end</td>
+<td class="app">pharma-acknowledge-s4h-sys</td>
+<td class="corr no-data">(empty)</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery; FileName=LSP_ALG_CZ1_O_OBDLV_5OD0000115_20260114_162152375.xml</td>
+</tr>
+<tr>
+<td>2</td>
+<td class="ts">2026-01-14T15:22:53.893Z</td>
+<td class="msg">start execution flow, Received IDOC message from S4H</td>
+<td class="app">snd-whm-deliveryinfo-proc</td>
+<td class="corr">20260114_162150_0000000067997503_5OD0000115</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery</td>
+</tr>
+<tr>
+<td>3</td>
+<td class="ts">2026-01-14T15:22:53.894Z</td>
+<td class="msg">Extract Mimetype Subflow - START</td>
+<td class="app">snd-whm-deliveryinfo-proc</td>
+<td class="corr">20260114_162150_0000000067997503_5OD0000115</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery</td>
+</tr>
+<tr>
+<td>4</td>
+<td class="ts">2026-01-14T15:22:53.894Z</td>
+<td class="msg">Extract Mimetype Subflow - END</td>
+<td class="app">snd-whm-deliveryinfo-proc</td>
+<td class="corr">20260114_162150_0000000067997503_5OD0000115</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery</td>
+</tr>
+<tr>
+<td>5</td>
+<td class="ts">2026-01-14T15:22:53.894Z</td>
+<td class="msg">Outbound delivery data posted to Solace</td>
+<td class="app">snd-whm-deliveryinfo-proc</td>
+<td class="corr">20260114_162150_0000000067997503_5OD0000115</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery</td>
+</tr>
+<tr>
+<td>6</td>
+<td class="ts">2026-01-14T15:22:53.894Z</td>
+<td class="msg">Message Publish to Solace Topic - START</td>
+<td class="app">snd-whm-deliveryinfo-proc</td>
+<td class="corr">20260114_162150_0000000067997503_5OD0000115</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery</td>
+</tr>
+<tr>
+<td>7</td>
+<td class="ts">2026-01-14T15:22:53.894Z</td>
+<td class="msg">Message Published to Solace Topic - END</td>
+<td class="app">snd-whm-deliveryinfo-proc</td>
+<td class="corr">20260114_162150_0000000067997503_5OD0000115</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery</td>
+</tr>
+<tr>
+<td>8</td>
+<td class="ts">2026-01-14T15:22:53.894Z</td>
+<td class="msg">end of execution flow for IDOC number</td>
+<td class="app">snd-whm-deliveryinfo-proc</td>
+<td class="corr">20260114_162150_0000000067997503_5OD0000115</td>
+<td><span class="sys sys-source">S4Hana</span> &rarr; <span class="sys sys-target">CZ_PH_AH</span></td>
+<td class="bk">IdocDetails: idocNumber=0000000067997503 dlvType=Y0LF WHSno=CZ_PH_AH deliveryNumber=5OD0000115 rootDocType= Outbound Delivery</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Flow 2: Outbound Delivery Confirmation -->
+<div class="flow-section">
+<div class="flow-title">Flow 2: Outbound Delivery Confirmation &mdash; CZ_PH_AH &rarr; S4Hana <span class="flow-badge badge-in">INBOUND</span> <span class="entity-tag">SHP_OBDLV_CONFIRM_DECENTRAL</span></div>
+<table>
+<thead>
+<tr><th>#</th><th>Timestamp</th><th>Message</th><th>Application Name</th><th>Universal Correlation ID</th><th>Source &rarr; Target</th><th>Business Keys</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td class="ts">2026-01-14T17:38:08.296Z</td>
+<td class="msg">flow end</td>
+<td class="app">pharma-acknowledge-s4h-sys</td>
+<td class="corr">__2529931918374971_5OD0000115</td>
+<td><span class="sys sys-source">CZ_PH_AH</span> &rarr; <span class="sys sys-target">S4Hana</span></td>
+<td class="bk">Delivery=5OD0000115; FileName=LSP_ALG_CZ1_I_OBDCNF_5OD0000115_20260114_183024.XML</td>
+</tr>
+<tr>
+<td>2</td>
+<td class="ts">2026-01-14T17:38:09.662Z</td>
+<td class="msg">Message received from solace and delivery flow starts and IDOC Type is SHP_OBDLV_CONFIRM_DECENTRAL05 and the IDOC number is 2529931918374971 and the Delivery number is 5OD0000115</td>
+<td class="app">snd-deliveryInfo-s4h-sys</td>
+<td class="corr">__2529931918374971_5OD0000115</td>
+<td><span class="sys sys-source">CZ_PH_AH</span> &rarr; <span class="sys sys-target">S4Hana</span></td>
+<td class="bk">DeliveryNo: 5OD0000115; Idoc: 2529931918374971</td>
+</tr>
+<tr>
+<td>3</td>
+<td class="ts">2026-01-14T17:38:09.662Z</td>
+<td class="msg">Flow starts to publish message to S4 and IDOC Type is SHP_OBDLV_CONFIRM_DECENTRAL05 and the IDOC number is 2529931918374971 and the Delivery number is 5OD0000115</td>
+<td class="app">snd-deliveryInfo-s4h-sys</td>
+<td class="corr">__2529931918374971_5OD0000115</td>
+<td><span class="sys sys-source">CZ_PH_AH</span> &rarr; <span class="sys sys-target">S4Hana</span></td>
+<td class="bk">DeliveryNo: 5OD0000115; Idoc: 2529931918374971</td>
+</tr>
+<tr>
+<td>4</td>
+<td class="ts">2026-01-14T17:38:09.664Z</td>
+<td class="msg">Delivery main flow completed and IDOC Type is SHP_OBDLV_CONFIRM_DECENTRAL05 and the IDOC number is 2529931918374971 and the Delivery number is 5OD0000115</td>
+<td class="app">snd-deliveryInfo-s4h-sys</td>
+<td class="corr">__2529931918374971_5OD0000115</td>
+<td><span class="sys sys-source">CZ_PH_AH</span> &rarr; <span class="sys sys-target">S4Hana</span></td>
+<td class="bk">DeliveryNo: 5OD0000115; Idoc: 2529931918374971</td>
+</tr>
+<tr>
+<td>5</td>
+<td class="ts">2026-01-14T17:38:09.664Z</td>
+<td class="msg">message successfully published to s4 and IDOC Type is SHP_OBDLV_CONFIRM_DECENTRAL05 and the IDOC number is 2529931918374971 and the Delivery number is 5OD0000115</td>
+<td class="app">snd-deliveryInfo-s4h-sys</td>
+<td class="corr">__2529931918374971_5OD0000115</td>
+<td><span class="sys sys-source">CZ_PH_AH</span> &rarr; <span class="sys sys-target">S4Hana</span></td>
+<td class="bk">DeliveryNo: 5OD0000115; Idoc: 2529931918374971</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<footer>
+<p>Generated by ELK Log Agent | Delivery Search: 5OD0000115 | 24 Mar 2026</p>
+</footer>
+</div>
+</body>
+</html>

@@ -4,8 +4,9 @@
 # Generates CSV + HTML dashboard with regional grouping.
 #
 # Usage:
-#   ./daily_wave_e_report.sh              # Report for yesterday
-#   ./daily_wave_e_report.sh 2026-03-19   # Report for specific date
+#   ./daily_wave_e_report.sh              # Report for yesterday (full 24h)
+#   ./daily_wave_e_report.sh 2026-03-19   # Report for specific date (full 24h)
+#   ./daily_wave_e_report.sh today        # Report for today (00:00 UTC to now)
 #
 # Configuration: Edit the variables below or set them as environment variables.
 
@@ -14,20 +15,31 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # --- Configuration ---
 ELK_PROD_ENDPOINT="${ELK_PROD_ENDPOINT:-https://integration-monitoring-lb.roche.com:9200}"
-ELK_PROD_APIKEY="${ELK_PROD_APIKEY:-XzFMdDRKd0I4aUlwVE54eEJwZHc6elRSNmNQWkJRMlNkZThBYTlnbUxPUQ==}"
+ELK_PROD_APIKEY="${ELK_PROD_APIKEY:?Set ELK_PROD_APIKEY as CI/CD variable}"
 ELK_INDEX="${ELK_INDEX:-mulesoft-pharma-prod-*}"
-REPORT_DIR="${REPORT_DIR:-$SCRIPT_DIR/reports}"
+REPORT_DIR="${REPORT_DIR:-$SCRIPT_DIR/latest}"
 CURL_TIMEOUT="${CURL_TIMEOUT:-120}"
 
-# Date handling: use argument or default to yesterday
+# Date handling: "today" = today 00:00 to now, date arg = full day, default = yesterday
+REPORT_MODE="daily"
 if [[ $# -ge 1 ]]; then
-    REPORT_DATE="$1"
+    if [[ "$1" == "today" ]]; then
+        REPORT_MODE="today"
+        REPORT_DATE="$(date -u '+%Y-%m-%d')"
+    else
+        REPORT_DATE="$1"
+    fi
 else
     REPORT_DATE="$(date -u -d 'yesterday' '+%Y-%m-%d' 2>/dev/null || date -u -v-1d '+%Y-%m-%d')"
 fi
 DATE_START="${REPORT_DATE}T00:00:00Z"
-DATE_END="$(date -u -d "$REPORT_DATE + 1 day" '+%Y-%m-%d' 2>/dev/null || date -u -v+1d -j -f '%Y-%m-%d' "$REPORT_DATE" '+%Y-%m-%d')T00:00:00Z"
-DISPLAY_DATE="$(date -u -d "$REPORT_DATE" '+%d %b %Y' 2>/dev/null || date -u -j -f '%Y-%m-%d' "$REPORT_DATE" '+%d %b %Y')"
+if [[ "$REPORT_MODE" == "today" ]]; then
+    DATE_END="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+    DISPLAY_DATE="$(date -u -d "$REPORT_DATE" '+%d %b %Y' 2>/dev/null || date -u -j -f '%Y-%m-%d' "$REPORT_DATE" '+%d %b %Y') (up to $(date -u '+%H:%M') UTC)"
+else
+    DATE_END="$(date -u -d "$REPORT_DATE + 1 day" '+%Y-%m-%d' 2>/dev/null || date -u -v+1d -j -f '%Y-%m-%d' "$REPORT_DATE" '+%Y-%m-%d')T00:00:00Z"
+    DISPLAY_DATE="$(date -u -d "$REPORT_DATE" '+%d %b %Y' 2>/dev/null || date -u -j -f '%Y-%m-%d' "$REPORT_DATE" '+%d %b %Y')"
+fi
 FILE_DATE="$(echo "$REPORT_DATE" | tr -d '-')"
 
 # Systems
@@ -272,6 +284,9 @@ main() {
     log "=== Report generation complete ==="
     log "CSV: $csv_file"
     log "HTML: $html_file"
+
+    # --- Send Google Chat notification ---
+    send_chat_notification "$grand_total" "$grand_success" "$grand_failed" "$success_rate" "$html_file"
 }
 
 # --- HTML Generation (split into 3 parts to avoid heredoc issues) ---
@@ -522,6 +537,193 @@ HTMLEOF
 </body>
 </html>
 HTMLEOF
+}
+
+# --- Google Chat Notification ---
+send_chat_notification() {
+    local grand_total="$1" grand_success="$2" grand_failed="$3" success_rate="$4" html_file="$5"
+    local webhook_url="${GOOGLE_CHAT_WEBHOOK_URL:-}"
+
+    if [[ -z "$webhook_url" ]]; then
+        log "GOOGLE_CHAT_WEBHOOK_URL not set — skipping notification."
+        return 0
+    fi
+
+    # Build interfaces list — top 5 by volume shown first, rest collapsed
+    local if_list_top="" if_list_rest="" if_count=0
+    # Sort interfaces by volume (descending) and format
+    local sorted_ifs
+    sorted_ifs=$(for i in "${!INTERFACES[@]}"; do
+        echo "${IF_TOTAL[$i]} $i"
+    done | sort -rn)
+
+    while read -r vol idx; do
+        [[ $vol -eq 0 ]] && continue
+        IFS='|' read -r name entity direction <<< "${INTERFACES[$idx]}"
+        local failed=${IF_FAILED[$idx]}
+        local dir_icon=""
+        [[ "$direction" == "O" ]] && dir_icon="⬆" || dir_icon="⬇"
+        local line=""
+        if [[ $failed -gt 0 ]]; then
+            line="${dir_icon} <font color=\"#d93025\"><b>${name}: ${vol} (${failed} failed)</b></font>"
+        else
+            line="${dir_icon} ${name}: <b>${vol}</b>"
+        fi
+        if_count=$((if_count + 1))
+        if [[ $if_count -le 5 ]]; then
+            if_list_top="${if_list_top}${line}\\n"
+        else
+            if_list_rest="${if_list_rest}${line}\\n"
+        fi
+    done <<< "$sorted_ifs"
+
+    # Build top systems list (non-zero, top 5 by volume) with bar visualization
+    local sys_list=""
+    local sys_max=1
+    # Find max for bar scaling
+    for sys in "${ALL_SYSTEMS[@]}"; do
+        local t=$(( ${SYS_SOURCE[$sys]:-0} + ${SYS_TARGET[$sys]:-0} ))
+        [[ $t -gt $sys_max ]] && sys_max=$t
+    done
+    sys_list=$(for sys in "${ALL_SYSTEMS[@]}"; do
+        local src=${SYS_SOURCE[$sys]:-0} tgt=${SYS_TARGET[$sys]:-0}
+        local total=$((src + tgt))
+        [[ $total -gt 0 ]] && echo "$total $sys $src $tgt"
+    done | sort -rn | head -5 | while read -r count sys src tgt; do
+        local region
+        region=$(get_system_region "$sys")
+        echo "<b>${sys}</b> — ${count} txns (${src} out, ${tgt} in) [${region}]"
+    done)
+    sys_list=$(echo "$sys_list" | tr '\n' '|' | sed 's/|/\\n/g')
+
+    if [[ $grand_failed -eq 0 ]]; then
+        local status_text="ALL SUCCESSFUL"
+        local status_icon="https://cdn-icons-png.flaticon.com/512/845/845646.png"
+    else
+        local status_text="${grand_failed} FAILED"
+        local status_icon="https://cdn-icons-png.flaticon.com/512/753/753345.png"
+    fi
+
+    # Build report download button via GitLab Pages artifact proxy
+    # URL pattern: https://<root-group>.pages.roche.com/-/<subpath>/-/jobs/<JOB_ID>/artifacts/<file>
+    local REPORT_BUTTON_SECTION=""
+    local report_filename
+    report_filename="$(basename "$html_file")"
+
+    if [[ -n "${CI_JOB_ID:-}" && -n "${CI_PROJECT_PATH:-}" ]]; then
+        # Extract root group and subpath from CI_PROJECT_PATH
+        # e.g. "myspace1/elk-kit" → root="myspace1", sub="elk-kit"
+        # e.g. "roche-mulesoft.../roche-pharma/.../quickstart" → root="roche-mulesoft...", sub="roche-pharma/.../quickstart"
+        local root_group="${CI_PROJECT_PATH%%/*}"
+        local sub_path="${CI_PROJECT_PATH#*/}"
+        local artifact_rel_path="elk-report/latest/${report_filename}"
+        local download_url="https://${root_group}.pages.roche.com/-/${sub_path}/-/jobs/${CI_JOB_ID}/artifacts/${artifact_rel_path}"
+
+        REPORT_BUTTON_SECTION=',
+        {
+          "widgets": [{
+            "buttonList": {
+              "buttons": [{
+                "text": "View HTML Report",
+                "onClick": {
+                  "openLink": {
+                    "url": "'"${download_url}"'"
+                  }
+                }
+              }]
+            }
+          }]
+        }'
+    fi
+
+    local generated_at
+    generated_at="$(date -u '+%H:%M UTC')"
+
+    local payload
+    payload=$(cat <<ENDJSON
+{
+  "cardsV2": [{
+    "cardId": "waveEReport",
+    "card": {
+      "header": {
+        "title": "Wave E Daily Report — ${DISPLAY_DATE}",
+        "subtitle": "${status_text}",
+        "imageUrl": "${status_icon}",
+        "imageType": "CIRCLE"
+      },
+      "sections": [
+        {
+          "widgets": [
+            {
+              "decoratedText": {
+                "topLabel": "Total Transactions",
+                "text": "<b>${grand_total}</b>  |  ✅ ${grand_success} passed  |  ❌ ${grand_failed} failed  |  <b>${success_rate}%</b> success rate"
+              }
+            },
+            {
+              "divider": {}
+            }
+          ]
+        },
+        {
+          "header": "Top Interfaces (by volume)",
+          "widgets": [{
+            "textParagraph": {
+              "text": "${if_list_top}"
+            }
+          }]
+        },
+        {
+          "header": "Other Interfaces",
+          "collapsible": true,
+          "uncollapsibleWidgetsCount": 0,
+          "widgets": [{
+            "textParagraph": {
+              "text": "${if_list_rest}"
+            }
+          }]
+        },
+        {
+          "header": "Top Systems (by volume)",
+          "collapsible": true,
+          "uncollapsibleWidgetsCount": 0,
+          "widgets": [{
+            "textParagraph": {
+              "text": "${sys_list}"
+            }
+          }]
+        },
+        {
+          "widgets": [
+            {
+              "divider": {}
+            },
+            {
+              "decoratedText": {
+                "topLabel": "Generated",
+                "text": "${generated_at}  |  ⬆ Outbound  ⬇ Inbound"
+              }
+            }
+          ]
+        }${REPORT_BUTTON_SECTION}
+      ]
+    }
+  }]
+}
+ENDJSON
+)
+
+    local response
+    response=$(curl -s -X POST "$webhook_url" \
+        -H "Content-Type: application/json" \
+        -d "$payload" 2>&1)
+
+    if echo "$response" | jq -e '.name' > /dev/null 2>&1; then
+        log "Notification sent to Google Chat."
+    else
+        log "WARNING: Failed to send notification."
+        log "Response: $response"
+    fi
 }
 
 main "$@"
